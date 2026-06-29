@@ -13,5 +13,19 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    
+    <!-- Hidden SVG filters for digital distortion/tearing -->
+    <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="digital-distortion">
+          <feTurbulence type="fractalNoise" baseFrequency="0.06 0.9" numOctaves="1" result="noise" />
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="18" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+        <filter id="digital-tear">
+          <feTurbulence type="fractalNoise" baseFrequency="0.02 0.35" numOctaves="2" result="noise" />
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="30" xChannelSelector="R" yChannelSelector="R" />
+        </filter>
+      </defs>
+    </svg>
   </body>
 </html>
