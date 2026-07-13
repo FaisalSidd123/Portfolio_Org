@@ -1,86 +1,502 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 
+// ============================================================
 // Project Database
+// ============================================================
 const projectsData = [
   {
-    id: "proj-1",
-    title: "METAVERSE CONSOLE",
-    category: "WEB",
-    gradient: "linear-gradient(135deg, #00f3ff 0%, #bd00ff 100%)",
-    description: "A virtual, browser-based administrative console for rendering real-time mesh coordinates on decentralized networks. Built with Three.js, React 19, and optimized shaders.",
-    client: "Aether Grid Labs",
-    year: "2026",
-    scope: "Frontend Architecture & WebGL",
-    metrics: "> conversion_lift: +43% // speed_index: 0.4s",
-    sliceOffsets: [-25, 18, -15, 22, -10] // Pre-computed offsets per slice band
-  },
-  {
-    id: "proj-2",
-    title: "KINETIC INDEX",
-    category: "DESIGN",
-    gradient: "linear-gradient(135deg, #ff007f 0%, #00f3ff 100%)",
-    description: "An experimental typographic design book utilizing kinetic letterform arrangements. Designed digitally, then split-color silkscreen printed using custom UV inks.",
-    client: "Vektor Press",
-    year: "2025",
-    scope: "Identity & Silkscreen Curation",
-    metrics: "> brand_recall: +88% // asset_matrix: 1200+ units",
-    sliceOffsets: [20, -18, 25, -15, 12]
-  },
-  {
-    id: "proj-3",
-    title: "SIGNAL ARCHIVE",
-    category: "MARKETING",
-    gradient: "linear-gradient(135deg, #bd00ff 0%, #ff007f 100%)",
-    description: "A data aggregation platform that crawls Web3 marketing channels to predict conversion vectors. Features real-time SVG charting and automated Telegram alerts.",
-    client: "Signal Group",
-    year: "2026",
-    scope: "Conversion Funnels & Backend API",
-    metrics: "> roas_index: 5.42x // lead_volume: +240%",
-    sliceOffsets: [-15, 22, -28, 12, -20]
-  },
-  {
-    id: "proj-4",
-    title: "NEON HUB",
+    id: 1,
+    title: "QuranVision",
+    subtitle: "Islamic Knowledge Platform",
+    image: "/Capture1.PNG",
+    description: "A comprehensive digital platform bringing Islamic knowledge to users worldwide with modern technology and intuitive design.",
+    detailedDescription: [
+      "QuranVision is a feature-rich web application providing seamless access to Quranic verses with multiple translations, tafsir (exegesis), and audio recitations. The platform includes an extensive Hadith library with detailed explanations and scholarly commentary.",
+      "The application implements role-based authentication with Google Sign-In, allowing users to save their favorite verses and hadiths to personalized collections. Registered users gain access to premium features including an integrated e-commerce system for purchasing Islamic books and subscription plans.",
+      "The admin dashboard provides comprehensive analytics on user activity, purchases, and content engagement, enabling administrators to manage content, plans, and user accounts efficiently."
+    ],
+    features: [
+      "Complete Quran with 10+ translations and tafsir sources",
+      "Hadith collection from Sahih Bukhari, Muslim and other authentic books",
+      "Audio recitations by multiple Qaris with synchronized highlighting",
+      "User collections with tagging and categorization",
+      "E-commerce system for books and subscription plans",
+      "Google authentication with role-based access control",
+      "Admin dashboard with user analytics and content management",
+      "Responsive design with mobile-first approach"
+    ],
+    tags: ["React", "Next.js", "Firebase", "E-commerce"],
+    liveLink: "#",
+    githubUrl: "https://github.com",
     category: "APP",
-    gradient: "linear-gradient(135deg, #00f3ff 0%, #ffffff 100%)",
-    description: "A companion smartphone application for locking and tracking hardware smart keys. Built in React Native with a full-duplex Bluetooth Low Energy stack.",
-    client: "Neon Security Corp",
+    color: "#5227ff",
+    gradient: "linear-gradient(135deg, #5227ff 0%, #bd00ff 100%)",
+    sliceOffsets: [8, -6, 7, -5, 4],
+    client: "QuranVision Team",
     year: "2026",
-    scope: "iOS/Android App & BLE Integration",
-    metrics: "> ble_latency: 4ms // security_score: 99.9%",
-    sliceOffsets: [24, -12, 18, -22, 15]
+    scope: "Full-Stack Web App Development",
+    metrics: "> active_users: 5k+ // collections_created: 12k+"
   },
   {
-    id: "proj-5",
-    title: "PULSE ENGINE",
+    id: 2,
+    title: "DreamFragrance",
+    subtitle: "E-commerce Perfume Store",
+    image: "/Capture2.jpg",
+    description: "An elegant e-commerce platform for perfumes with smooth animations, modern design, admin portal, and all essential online shopping features.",
+    detailedDescription: [
+      "DreamFragrance is a visually captivating perfume e-commerce website designed with a focus on luxury aesthetics and a delightful user experience. The homepage features engaging animations, smooth transitions, and an intuitive navigation flow to immerse visitors in the shopping experience.",
+      "The platform provides a full-fledged e-commerce system with product listings, detailed product pages, user profiles, shopping cart, and order history. Customers can securely sign up, log in via Firebase authentication, and manage their accounts effortlessly.",
+      "An admin portal is integrated for managing products and orders. Admins can oversee available perfumes, track inventory, and process customer orders efficiently, ensuring smooth store operations.",
+      "PostgreSQL is used for structured product, order, and user data management, while Firebase ensures seamless and secure authentication."
+    ],
+    features: [
+      "Visually stunning homepage with exciting animations and smooth transitions",
+      "Store component showcasing perfumes with filtering and sorting options",
+      "Detailed product pages with descriptions, images, and reviews",
+      "Shopping cart, secure checkout, and order management",
+      "Firebase authentication with secure sign-in and sign-up",
+      "PostgreSQL database for products, users, and orders",
+      "Deal page highlighting promotions and exclusive offers",
+      "Admin portal for managing products and orders",
+      "Fully responsive, optimized for mobile devices"
+    ],
+    tags: ["React", "Node.js", "Express", "PostgreSQL", "Firebase", "E-commerce", "Animations", "Admin Portal"],
+    liveLink: "#",
+    githubUrl: "https://github.com",
     category: "WEB",
-    gradient: "linear-gradient(135deg, #ff007f 0%, #bd00ff 100%)",
-    description: "A customized WebAudio synthesizer that translates CPU load patterns into real-time ambient sonic textures. Crafted entirely in pure React 19.",
-    client: "BitSynth Interactive",
+    color: "#00ff9d",
+    gradient: "linear-gradient(135deg, #00ff9d 0%, #00f3ff 100%)",
+    sliceOffsets: [-6, 8, -4, 6, -5],
+    client: "DreamFragrance Ltd",
     year: "2025",
-    scope: "Web Audio API & Sound Design",
-    metrics: "> audio_fps: 60 // render_load: 0.8%",
-    sliceOffsets: [-22, 25, -12, 18, -15]
+    scope: "E-Commerce & DB Administration",
+    metrics: "> online_sales: +140% // cart_conversion: 4.8%"
+  },
+  {
+    id: 3,
+    title: "SoleHub",
+    subtitle: "E-commerce Shoes Store",
+    image: "/Capture3.jpg",
+    description: "A stylish e-commerce platform for shoes with a modern interface, smooth shopping experience, and essential online store features.",
+    detailedDescription: [
+      "SoleHub is a sleek and modern e-commerce website dedicated to footwear, built with a focus on performance, responsiveness, and an engaging user experience. The homepage highlights trending shoes and collections with visually appealing layouts and smooth transitions.",
+      "The platform includes all core e-commerce features: product listings, detailed product pages with images and specifications, a shopping cart, secure checkout, and order tracking. Customers can create accounts, manage their profiles, and access order history easily.",
+      "PostgreSQL is used as the database for managing products, user accounts, and orders, ensuring reliability and scalability."
+    ],
+    features: [
+      "Modern and responsive homepage highlighting trending shoe collections",
+      "Store component showcasing shoes with filtering and sorting options",
+      "Detailed product pages with specifications, multiple images, and reviews",
+      "Shopping cart, secure checkout, and order tracking",
+      "User profile with order history and account details",
+      "PostgreSQL database for structured product, user, and order data"
+    ],
+    tags: ["React", "Node.js", "Express", "PostgreSQL", "E-commerce"],
+    liveLink: "#",
+    githubUrl: "https://github.com",
+    category: "WEB",
+    color: "#00f3ff",
+    gradient: "linear-gradient(135deg, #00f3ff 0%, #5227ff 100%)",
+    sliceOffsets: [-8, 7, -6, 8, -5],
+    client: "SoleHub Retail",
+    year: "2025",
+    scope: "Frontend & REST APIs development",
+    metrics: "> response_time: 45ms // cart_abandonment: -15%"
+  },
+  {
+    id: 4,
+    title: "Anonymous",
+    subtitle: "Anonymous Messaging Platform",
+    image: "/Capture4.png",
+    description: "A full-stack anonymous messaging platform where users receive messages through a unique shareable link with AI-powered message suggestions.",
+    detailedDescription: [
+      "AnonMsg is a full-stack anonymous messaging web application built with Next.js and MongoDB, where users can receive anonymous messages through a unique personalized shareable link. The platform focuses on privacy, security, and an engaging user experience.",
+      "The authentication system is built using NextAuth.js with JWT-based signup and login, ensuring secure access to user accounts. Zod is used for robust input validation throughout the application, while Resend handles email services for account verification.",
+      "The user dashboard allows users to view all received anonymous messages, toggle whether they want to accept new messages, and easily share their unique message link. AI-powered message suggestions are integrated using NVIDIA NIM (LLaMA 3.1), providing dynamic question prompts."
+    ],
+    features: [
+      "Unique shareable link for each user to receive anonymous messages",
+      "AI-powered message suggestions using NVIDIA NIM (LLaMA 3.1)",
+      "JWT-based secure authentication using NextAuth.js",
+      "Input validation with Zod for reliable data handling",
+      "Email verification and notifications via Resend",
+      "User dashboard to manage and view anonymous messages",
+      "Toggle to enable or disable incoming message acceptance"
+    ],
+    tags: ["Next.js", "MongoDB", "NextAuth.js", "Zod", "Resend", "NVIDIA NIM", "Tailwind CSS"],
+    liveLink: "#",
+    githubUrl: "https://github.com/FaisalSidd123/Anonymous",
+    category: "APP",
+    color: "#6366f1",
+    gradient: "linear-gradient(135deg, #6366f1 0%, #5227ff 100%)",
+    sliceOffsets: [8, -7, 6, -6, 5],
+    client: "Anon Network Group",
+    year: "2026",
+    scope: "NextJS 14 App Router & JWT Security",
+    metrics: "> anonymous_messages: 50k+ // nim_ai_latency: 90ms"
+  },
+  {
+    id: 5,
+    title: "Opti-Manage",
+    subtitle: "Brand Management Platform",
+    image: "/Capture.PNG",
+    description: "A professional brand website showcasing digital marketing and influencer management services.",
+    detailedDescription: [
+      "Opti-Manage is a sleek, modern brand website designed to showcase the company's expertise in influencer management, sports marketing, and digital brand strategy. The platform highlights the company's services, values, and success stories through an engaging user interface.",
+      "The website features a clean, performance-optimized design with smooth animations and responsive layouts. Key sections include service offerings, client testimonials, case studies, and a contact management system for lead generation."
+    ],
+    features: [
+      "Service showcase with interactive elements",
+      "Company values and mission presentation",
+      "Responsive design with mobile optimization",
+      "Contact form with automated responses",
+      "Performance-optimized assets and loading",
+      "SEO-optimized content structure"
+    ],
+    tags: ["React", "UI/UX", "Responsive Design"],
+    liveLink: "#",
+    githubUrl: "https://github.com",
+    category: "DESIGN",
+    color: "#7cff67",
+    gradient: "linear-gradient(135deg, #7cff67 0%, #10b981 100%)",
+    sliceOffsets: [-8, 6, -5, 8, -4],
+    client: "OptiManage Corp",
+    year: "2025",
+    scope: "Design System & Frontend Development",
+    metrics: "> brand_presence: 100% // load_speed: 0.6s"
+  },
+  {
+    id: 6,
+    title: "MYP (Manage Your Priorities)",
+    subtitle: "Contact & Client Management System",
+    image: "/Capture5.PNG",
+    description: "A full-stack contact & client management system featuring an AI-based contact parser using LLaMA 3.1.",
+    detailedDescription: [
+      "MYP is a full-stack contact & client management system built using Next.js, Supabase, and Tailwind CSS. The application implements secure JWT-based authentication and role-based access for robust operations.",
+      "It incorporates an advanced AI-based contact parser using LLaMA 3.1 (meta/llama-3.1-8b-instruct) to translate unstructured text records into cleanly formatted database values.",
+      "Developed with a feature-rich workspace dashboard containing contact tracking, visual Kanban task management, appointment scheduling, and real-time WebSocket notifications."
+    ],
+    features: [
+      "AI-based contact parsing using LLaMA 3.1 models",
+      "Full-stack client management dashboard with task logs",
+      "Visual Kanban workflow board for tracking projects",
+      "Secure JWT-based authentication and role-based access",
+      "Real-time notifications and task scheduling"
+    ],
+    tags: ["Next.js", "Supabase", "LLaMA 3.1", "CRM", "Kanban"],
+    liveLink: "#",
+    githubUrl: "https://github.com",
+    category: "APP",
+    color: "#ff007f",
+    gradient: "linear-gradient(135deg, #ff007f 0%, #bd00ff 100%)",
+    sliceOffsets: [-5, 8, -6, 7, -4],
+    client: "Priority Labs",
+    year: "2026",
+    scope: "AI Integrations & Full-Stack Development",
+    metrics: "> ai_parser_accuracy: 98% // db_latency: 8ms"
+  },
+  {
+    id: 7,
+    title: "UrbanEdge",
+    subtitle: "Editorial Real Estate Portal",
+    image: "/Capture6.PNG",
+    description: "A premium real estate agency platform highlighting elite property displays, search filters, interactive bookings, and buttery-smooth Lenis motion grids.",
+    detailedDescription: [
+      "UrbanEdge is an editorial real estate web portal designed to showcase high-end architecture and luxury properties with high-contrast visual design and smooth motion.",
+      "The platform features an advanced search interface with customized filters for price, location, and property type, along with an interactive booking system for scheduling property viewings."
+    ],
+    features: [
+      "Elite property listings showcase with high-res galleries",
+      "Advanced filtering system for property search parameters",
+      "Interactive viewing scheduler & tour booking flow",
+      "Smooth scroll integration with Lenis scrolling",
+      "GSAP ScrollTrigger layouts with reveal animations"
+    ],
+    tags: ["React", "Tailwind CSS", "Lenis", "GSAP", "Framer Motion"],
+    liveLink: "#",
+    githubUrl: "https://github.com",
+    category: "WEB",
+    color: "#ec4899",
+    gradient: "linear-gradient(135deg, #ec4899 0%, #ff007f 100%)",
+    sliceOffsets: [-7, 8, -5, 6, -4],
+    client: "UrbanEdge Properties",
+    year: "2026",
+    scope: "Lenis Smooth Motion & Tailwind Layouts",
+    metrics: "> property_views: +310% // scroll_smoothness: 60fps"
+  },
+  {
+    id: 8,
+    title: "F&W Glitch",
+    subtitle: "IT Services Website",
+    image: "/Capture3.jpeg",
+    description: "A modern IT brand website for F&W Glitch that showcases technology services, expertise, and business solutions with a clean and responsive user interface.",
+    detailedDescription: [
+      "F&W Glitch is a digital agency showcase designed to capture lead generation and highlight modern development solutions.",
+      "The project employs customized brand styling, micro-animations, and dynamic scroll layouts to keep developers and corporate clients engaged."
+    ],
+    features: [
+      "Dynamic service portals showcasing IT expertise",
+      "Interactive CTA layouts with visual feedback",
+      "Fast loading, optimized graphics assets",
+      "Responsive design supporting all standard viewport resolutions"
+    ],
+    tags: ["React", "CSS", "JavaScript", "EmailJs"],
+    liveLink: "#",
+    githubUrl: "https://github.com",
+    category: "WEB",
+    color: "#10b981",
+    gradient: "linear-gradient(135deg, #10b981 0%, #7cff67 100%)",
+    sliceOffsets: [7, -4, 6, -7, 5],
+    client: "F&W Gllitch Ltd",
+    year: "2026",
+    scope: "Aesthetic Design & Responsive React Core",
+    metrics: "> system_leads: +210% // lighthouse_perf: 100/100"
+  },
+  {
+    id: 9,
+    title: "Simon Game",
+    subtitle: "Classic Memory Challenge",
+    image: "/Capture2.png",
+    description: "An interactive browser-based version of the classic Simon memory game. Players must repeat increasingly complex sequences of colors and sounds.",
+    detailedDescription: [
+      "Simon Game is a sleek, browser-native memory challenge utilizing semantic HTML elements, custom CSS variables, and raw JavaScript DOM event loops.",
+      "Features interactive keypress listeners, synthesised retro sound effects, score tracking, and automated failure checking."
+    ],
+    features: [
+      "Automated pattern sequence generation",
+      "Synchronized color flashing and synthesized sound plays",
+      "Best score local persistence tracking",
+      "Strict pattern repetition validator"
+    ],
+    tags: ["HTML5", "CSS3", "JavaScript", "DOM Manipulation"],
+    liveLink: "https://github.com/FaisalSidd123/Simon-Game",
+    githubUrl: "https://github.com/FaisalSidd123/Simon-Game",
+    category: "DESIGN",
+    color: "#f59e0b",
+    gradient: "linear-gradient(135deg, #f59e0b 0%, #ff007f 100%)",
+    sliceOffsets: [-6, 7, -5, 6, -4],
+    client: "Simon Memory Games",
+    year: "2024",
+    scope: "Audio Synthesis & Memory Game Mechanics",
+    metrics: "> user_engagement: 15m avg // audio_sync: 100%"
   }
 ];
 
-// Single Fractured Project Card Component
-function FracturedCard({ 
-  project, 
-  mousePos, 
-  activeFilter, 
-  onSelect, 
-  reducedMotion 
-}) {
+// ============================================================
+// GlitchText — scrambles from noise into the real string
+// ============================================================
+const SCRAMBLE_CHARS = "!<>-_\\/[]{}—=+*^?#01ΔΞΨЖ01アイウエオ";
+
+function GlitchText({ text, active, duration = 500, style, as: Tag = "span" }) {
+  const [display, setDisplay] = useState(active ? "" : text);
+
+  useEffect(() => {
+    if (!active) {
+      setDisplay(text);
+      return;
+    }
+    let frame = 0;
+    const totalFrames = Math.max(6, Math.floor(duration / 28));
+    const id = setInterval(() => {
+      frame++;
+      const revealCount = Math.floor((frame / totalFrames) * text.length);
+      setDisplay(
+        text
+          .split("")
+          .map((c, i) => {
+            if (c === " ") return " ";
+            if (i < revealCount) return c;
+            return SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)];
+          })
+          .join("")
+      );
+      if (frame >= totalFrames) {
+        setDisplay(text);
+        clearInterval(id);
+      }
+    }, 28);
+    return () => clearInterval(id);
+  }, [active, text, duration]);
+
+  return <Tag style={style}>{display}</Tag>;
+}
+
+// ============================================================
+// DecryptSequence — full-screen "breach" transition played
+// between clicking a fractured card and the case study opening
+// ============================================================
+function DecryptSequence({ project, onComplete, mode = "open" }) {
+  const [progress, setProgress] = useState(0);
+  const [lineCount, setLineCount] = useState(0);
+  const turbRef = useRef(null);
+  const duration = mode === "open" ? 900 : 380;
+
+  const openLines = [
+    `> locating FILE//${String(project.id).padStart(3, "0")}...`,
+    `> target: ${project.title.toUpperCase()}`,
+    `> bypassing fracture lock...`,
+    `> reassembling slices...`,
+    `> access granted_`
+  ];
+  const closeLines = [`> re-fracturing FILE//${String(project.id).padStart(3, "0")}...`];
+  const lines = mode === "open" ? openLines : closeLines;
+
+  useEffect(() => {
+    const start = performance.now();
+    let raf;
+    const tick = (now) => {
+      const elapsed = now - start;
+      const pct = Math.min(100, (elapsed / duration) * 100);
+      setProgress(pct);
+      setLineCount(Math.min(lines.length, Math.floor((elapsed / duration) * lines.length) + 1));
+      if (turbRef.current) {
+        turbRef.current.setAttribute("seed", String(Math.floor(Math.random() * 100)));
+      }
+      if (elapsed < duration) {
+        raf = requestAnimationFrame(tick);
+      } else {
+        onComplete();
+      }
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.15 }}
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 10001,
+        background: "#000",
+        overflow: "hidden",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center"
+      }}
+    >
+      {/* SVG static/noise filter, seed re-rolled every frame */}
+      <svg width="0" height="0" style={{ position: "absolute" }}>
+        <filter id="decrypt-static">
+          <feTurbulence ref={turbRef} type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="3" stitchTiles="stitch" />
+          <feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.06 0" />
+        </filter>
+      </svg>
+      <div
+        className="glitch-shake"
+        style={{
+          position: "absolute",
+          inset: 0,
+          filter: "url(#decrypt-static)",
+          mixBlendMode: "screen",
+          opacity: 0.55,
+          pointerEvents: "none"
+        }}
+      />
+
+      {/* scanline sweep */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage:
+            "repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px, transparent 1px, transparent 3px)",
+          pointerEvents: "none"
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          left: 0,
+          right: 0,
+          height: "120px",
+          background: `linear-gradient(180deg, transparent 0%, ${project.color}22 45%, ${project.color}66 50%, ${project.color}22 55%, transparent 100%)`,
+          animation: `scan-sweep ${duration}ms linear`,
+          pointerEvents: "none"
+        }}
+      />
+
+      {/* color-split project glyph */}
+      <div style={{ textAlign: "center", position: "relative", zIndex: 2 }}>
+        <div
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontWeight: 950,
+            fontSize: "5rem",
+            lineHeight: 1,
+            letterSpacing: "-0.03em",
+            color: "#fff",
+            position: "relative",
+            textShadow: `2.5px 0 ${project.color}, -2.5px 0 var(--accent-cyan)`,
+            animation: "rgb-jitter 90ms infinite"
+          }}
+        >
+          {project.title.substring(0, 2).toUpperCase()}
+        </div>
+
+        <div
+          style={{
+            marginTop: "1.5rem",
+            fontFamily: "var(--font-mono)",
+            fontSize: "0.8rem",
+            color: project.color,
+            minHeight: mode === "open" ? "6.5em" : "1.5em",
+            textAlign: "left",
+            width: "min(90vw, 380px)"
+          }}
+        >
+          {lines.slice(0, lineCount).map((l, i) => (
+            <div key={i} style={{ marginBottom: "0.35em", opacity: i === lineCount - 1 ? 1 : 0.5 }}>
+              {l}
+              {i === lineCount - 1 ? <span className="cursor-blink">▌</span> : null}
+            </div>
+          ))}
+        </div>
+
+        <div
+          style={{
+            marginTop: "1rem",
+            width: "min(90vw, 380px)",
+            height: "3px",
+            background: "rgba(255,255,255,0.08)",
+            position: "relative",
+            overflow: "hidden"
+          }}
+        >
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              height: "100%",
+              width: `${progress}%`,
+              background: project.color,
+              boxShadow: `0 0 8px ${project.color}`
+            }}
+          />
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+// ============================================================
+// FracturedCard
+// ============================================================
+function FracturedCard({ project, mousePos, activeFilter, onSelect, reducedMotion }) {
   const cardRef = useRef(null);
   const [fractureRatio, setFractureRatio] = useState(1.0);
   const [isAligned, setIsAligned] = useState(false);
   const [isAmbientFractured, setIsAmbientFractured] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
-  // Proximity Calculation Loop
   useEffect(() => {
     if (reducedMotion || isAmbientFractured) return;
 
@@ -101,15 +517,12 @@ function FracturedCard({
       const cardX = rect.left + rect.width / 2;
       const cardY = rect.top + rect.height / 2;
 
-      // Absolute mouse coordinates relative to window viewport
       const dx = mousePos.x - cardX;
       const dy = mousePos.y - cardY;
       const dist = Math.sqrt(dx * dx + dy * dy);
 
-      // Distance mapping logic
-      // Under 50px: fully aligned (ratio = 0). Over 320px: fully fractured (ratio = 1).
       const minDistance = 50;
-      const maxDistance = 320;
+      const maxDistance = 260;
 
       if (dist < minDistance) {
         setFractureRatio(0);
@@ -126,33 +539,23 @@ function FracturedCard({
 
     checkProximity();
 
-    return () => {
-      observer.disconnect();
-    };
+    return () => observer.disconnect();
   }, [mousePos, reducedMotion, isAmbientFractured]);
 
-  // Ambient idle fracture/self-correct loop
   useEffect(() => {
     if (reducedMotion || isHovered) return;
 
     const runAmbientSelfCorrect = () => {
-      // 10% chance to self-correct and re-fracture every 10 seconds
       if (Math.random() < 0.12) {
         setIsAmbientFractured(true);
-        // Animate down to 0 (aligned) and back to 1.0 (fractured)
         let step = 0;
-        const duration = 120; // frames
+        const duration = 100;
         const interval = setInterval(() => {
           step++;
-          const progress = step / duration; // 0 to 1
-          
-          // Sinusoidal curve down and back
-          const val = Math.abs(Math.sin(progress * Math.PI - Math.PI / 2)); // 1 -> 0 -> 1
+          const progress = step / duration;
+          const val = Math.abs(Math.sin(progress * Math.PI - Math.PI / 2));
           setFractureRatio(val);
-
-          if (val < 0.05) setIsAligned(true);
-          else setIsAligned(false);
-
+          setIsAligned(val < 0.05);
           if (step >= duration) {
             clearInterval(interval);
             setFractureRatio(1.0);
@@ -162,13 +565,12 @@ function FracturedCard({
       }
     };
 
-    const intervalId = setInterval(runAmbientSelfCorrect, 10000);
+    const intervalId = setInterval(runAmbientSelfCorrect, 12000);
     return () => clearInterval(intervalId);
   }, [reducedMotion, isHovered]);
 
   const isMismatched = activeFilter !== "ALL" && project.category !== activeFilter;
 
-  // Render horizontal slices of mockup
   const sliceHeights = [
     { inset: "inset(0% 0% 80% 0%)", index: 0 },
     { inset: "inset(20% 0% 60% 0%)", index: 1 },
@@ -180,19 +582,17 @@ function FracturedCard({
   return (
     <motion.div
       ref={cardRef}
-      layout
+      layoutId={`card-shell-${project.id}`}
       onClick={() => onSelect(project)}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       animate={{
         opacity: isMismatched ? 0.08 : 1.0,
-        scale: isMismatched ? 0.9 : isAligned ? 1.04 : 1.0,
-        y: isMismatched ? 15 : 0
+        scale: isMismatched ? 0.9 : isAligned ? 1.03 : 1.0
       }}
-      transition={{ type: "spring", stiffness: 200, damping: 20 }}
+      transition={{ type: "spring", stiffness: 220, damping: 22 }}
       style={{
         width: "100%",
-        maxWidth: "340px",
         height: "360px",
         background: "var(--bg-card)",
         border: "1px solid var(--border-color)",
@@ -203,26 +603,52 @@ function FracturedCard({
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        boxShadow: isAligned ? "0 15px 35px rgba(0, 243, 255, 0.12)" : "none",
-        borderWidth: isAligned ? "1.5px" : "1px",
-        borderColor: isAligned ? "var(--accent-cyan)" : "var(--border-color)"
+        boxShadow: isAligned ? `0 10px 25px rgba(${project.color === "#7cff67" ? "124, 255, 103" : "0, 243, 255"}, 0.1)` : "none",
+        borderColor: isAligned ? project.color : "var(--border-color)",
+        transition: "border-color 0.3s ease"
       }}
     >
-      {/* top indicator bar */}
+      {/* corner reticle — only visible when locked */}
+      {["tl", "tr", "bl", "br"].map((corner) => (
+        <span
+          key={corner}
+          style={{
+            position: "absolute",
+            width: "10px",
+            height: "10px",
+            borderColor: project.color,
+            opacity: isAligned ? 1 : 0,
+            transition: "opacity 0.2s ease",
+            pointerEvents: "none",
+            top: corner.startsWith("t") ? "6px" : "auto",
+            bottom: corner.startsWith("b") ? "6px" : "auto",
+            left: corner.endsWith("l") ? "6px" : "auto",
+            right: corner.endsWith("r") ? "6px" : "auto",
+            borderTop: corner.startsWith("t") ? `2px solid ${project.color}` : "none",
+            borderBottom: corner.startsWith("b") ? `2px solid ${project.color}` : "none",
+            borderLeft: corner.endsWith("l") ? `2px solid ${project.color}` : "none",
+            borderRight: corner.endsWith("r") ? `2px solid ${project.color}` : "none"
+          }}
+        />
+      ))}
+
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", color: "var(--text-secondary)" }}>
-          {"FILE//" + project.id.toUpperCase()}
+          {"FILE//" + String(project.id).padStart(3, "0")}
         </span>
-        <div style={{ 
-          width: "6px", 
-          height: "6px", 
-          borderRadius: "50%", 
-          background: isAligned ? "var(--accent-cyan)" : "var(--border-color)" 
-        }} />
+        <div
+          style={{
+            width: "6px",
+            height: "6px",
+            borderRadius: "50%",
+            background: isAligned ? project.color : "var(--border-color)",
+            transition: "background 0.3s ease",
+            boxShadow: isAligned ? `0 0 6px ${project.color}` : "none"
+          }}
+        />
       </div>
 
-      {/* Slices Canvas Container */}
-      <div 
+      <div
         style={{
           flex: 1,
           margin: "1.5rem 0",
@@ -233,14 +659,10 @@ function FracturedCard({
           position: "relative"
         }}
       >
-        {/* Render horizontal slices stacking */}
         {sliceHeights.map((slice) => {
           const offsetMax = project.sliceOffsets[slice.index];
-          // Calculate dynamic horizontal translation
           const translateVal = reducedMotion ? 0 : offsetMax * fractureRatio;
-          
-          // Chromatic aberration shadow offset based on displacement
-          const caOffset = reducedMotion ? 0 : 2 * fractureRatio;
+          const caOffset = reducedMotion ? 0 : 1.5 * fractureRatio;
 
           return (
             <div
@@ -260,52 +682,81 @@ function FracturedCard({
                 justifyContent: "center"
               }}
             >
-              {/* Common backdrop mockup */}
-              <div 
+              <div
                 style={{
                   width: "100%",
                   height: "100%",
-                  background: `linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,0.95)), ${project.gradient}`,
+                  background: `linear-gradient(to bottom, rgba(0,0,0,0.85), rgba(0,0,0,0.95)), ${project.gradient}`,
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   fontSize: "3rem",
                   fontWeight: "950",
-                  color: "rgba(255, 255, 255, 0.05)",
-                  textShadow: caOffset > 0 ? `${caOffset}px 0 rgba(0, 243, 255, 0.6), ${-caOffset}px 0 rgba(255, 0, 127, 0.6)` : "none"
+                  color: "rgba(255, 255, 255, 0.04)",
+                  textShadow: caOffset > 0 ? `${caOffset}px 0 rgba(0, 243, 255, 0.5), ${-caOffset}px 0 rgba(255, 0, 127, 0.5)` : "none"
                 }}
               >
-                {project.title.substring(0, 2)}
+                {project.title.substring(0, 2).toUpperCase()}
               </div>
             </div>
           );
         })}
 
-        {/* Faint overlay grid */}
-        <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", backgroundImage: "linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px)", backgroundSize: "100% 8px", pointerEvents: "none" }} />
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundImage: "linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px)",
+            backgroundSize: "100% 8px",
+            pointerEvents: "none"
+          }}
+        />
+
+        {/* decrypt prompt on hover/lock */}
+        <div
+          style={{
+            position: "absolute",
+            bottom: "8px",
+            right: "10px",
+            fontFamily: "var(--font-mono)",
+            fontSize: "0.65rem",
+            color: project.color,
+            opacity: isAligned ? 1 : 0,
+            transform: isAligned ? "translateY(0)" : "translateY(4px)",
+            transition: "all 0.2s ease",
+            pointerEvents: "none"
+          }}
+        >
+          click to decrypt »
+        </div>
       </div>
 
-      {/* Snap lock title & info */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
-        <div>
-          <h3 
-            style={{ 
-              fontSize: "1.2rem", 
-              fontWeight: "900", 
-              color: "#fff", 
+        <div style={{ maxWidth: "80%", textAlign: "left" }}>
+          <h3
+            style={{
+              fontSize: "1rem",
+              fontWeight: "800",
+              color: "#fff",
               fontFamily: "var(--font-sans)",
-              letterSpacing: "-0.01em"
+              letterSpacing: "-0.01em",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis"
             }}
           >
             {project.title}
           </h3>
-          <span 
-            style={{ 
+          <span
+            style={{
               display: "block",
               marginTop: "0.2rem",
               fontFamily: "var(--font-mono)",
-              fontSize: "0.75rem",
-              color: isAligned ? "var(--accent-cyan)" : "var(--text-secondary)",
+              fontSize: "0.7rem",
+              color: isAligned ? project.color : "var(--text-secondary)",
               transition: "color 0.2s ease"
             }}
           >
@@ -313,25 +764,24 @@ function FracturedCard({
           </span>
         </div>
 
-        {/* Tactical Lock Indicator thunk bounce */}
         <AnimatePresence>
           {isAligned && (
             <motion.div
               initial={{ scale: 0.5, opacity: 0 }}
               animate={{ scale: [0.5, 1.2, 1], opacity: 1 }}
               exit={{ scale: 0.5, opacity: 0 }}
-              transition={{ duration: 0.25 }}
+              transition={{ duration: 0.2 }}
               style={{
-                padding: "0.4rem 0.8rem",
-                background: "var(--accent-cyan)",
+                padding: "0.3rem 0.6rem",
+                background: project.color,
                 color: "#000",
                 fontFamily: "var(--font-mono)",
-                fontSize: "0.65rem",
+                fontSize: "0.6rem",
                 fontWeight: "bold",
                 borderRadius: "4px"
               }}
             >
-              ALIGN
+              OK_
             </motion.div>
           )}
         </AnimatePresence>
@@ -340,15 +790,20 @@ function FracturedCard({
   );
 }
 
+// ============================================================
+// Main
+// ============================================================
 export default function WorkMasonry() {
   const [activeFilter, setActiveFilter] = useState("ALL");
   const [selectedId, setSelectedId] = useState(null);
+  const [decryptId, setDecryptId] = useState(null); // playing the open sequence
+  const [encryptId, setEncryptId] = useState(null); // playing the close sequence
+  const [modalRevealed, setModalRevealed] = useState(false);
   const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
-  const [reducedMotion, setReducedMotion] = useState(() => 
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  const [reducedMotion, setReducedMotion] = useState(() =>
+    typeof window !== "undefined" ? window.matchMedia("(prefers-reduced-motion: reduce)").matches : false
   );
 
-  // Check prefers-reduced-motion
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
     const listener = (e) => setReducedMotion(e.matches);
@@ -356,61 +811,59 @@ export default function WorkMasonry() {
     return () => media.removeEventListener("change", listener);
   }, []);
 
-  // Track global viewport mouse coordinates
   useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMousePos({ x: e.clientX, y: e.clientY });
-    };
+    const handleMouseMove = (e) => setMousePos({ x: e.clientX, y: e.clientY });
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
+  const decryptProject = projectsData.find((p) => p.id === decryptId);
+  const encryptProject = projectsData.find((p) => p.id === encryptId);
   const activeProject = projectsData.find((p) => p.id === selectedId);
 
-  // Filter positions coordinates (floating angly labels)
-  const filters = [
-    { label: "ALL", top: "10%", left: "5%", angle: "-6deg" },
-    { label: "WEB", top: "18%", left: "80%", angle: "8deg" },
-    { label: "APP", top: "45%", left: "2%", angle: "-4deg" },
-    { label: "DESIGN", top: "60%", left: "88%", angle: "12deg" },
-    { label: "MARKETING", top: "85%", left: "4%", angle: "-8deg" }
-  ];
+  const handleSelect = useCallback((project) => {
+    if (reducedMotion) {
+      setSelectedId(project.id);
+      setModalRevealed(true);
+      return;
+    }
+    setDecryptId(project.id);
+  }, [reducedMotion]);
+
+  const handleDecryptComplete = useCallback(() => {
+    setSelectedId(decryptId);
+    setDecryptId(null);
+    setModalRevealed(false);
+    requestAnimationFrame(() => requestAnimationFrame(() => setModalRevealed(true)));
+  }, [decryptId]);
+
+  const handleClose = useCallback(() => {
+    if (reducedMotion) {
+      setSelectedId(null);
+      return;
+    }
+    setEncryptId(selectedId);
+    setModalRevealed(false);
+    setSelectedId(null);
+  }, [selectedId, reducedMotion]);
+
+  const handleEncryptComplete = useCallback(() => {
+    setEncryptId(null);
+  }, []);
 
   return (
-    <section 
+    <section
       className="section-padding"
-      style={{
-        background: "transparent",
-        borderBottom: "1px solid var(--border-color)",
-        position: "relative",
-        overflow: "hidden"
-      }}
+      style={{ background: "transparent", borderBottom: "1px solid var(--border-color)", position: "relative", overflow: "hidden" }}
     >
-      {/* Decorative scattered coordinates background grid */}
-      <div 
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          backgroundImage: "radial-gradient(rgba(255,255,255,0.02) 1px, transparent 1px)",
-          backgroundSize: "24px 24px",
-          pointerEvents: "none",
-          zIndex: 0
-        }}
-      />
-
       <div style={{ maxWidth: "1200px", margin: "0 auto", position: "relative", zIndex: 2 }}>
-        
-        {/* Kinetic Header */}
-        <div style={{ textAlign: "center", marginBottom: "5rem" }}>
+        <div style={{ textAlign: "center", marginBottom: "4rem" }}>
           <span style={{ fontFamily: "var(--font-mono)", color: "var(--accent-pink)", fontSize: "0.85rem", letterSpacing: "0.2em" }}>
-            {"// FRACTURED ARCHIVE DATA"}
+            {"// FRACTURED PROJECT LOGS"}
           </span>
-          <h2 
+          <h2
             style={{
-              fontSize: "4.5rem",
+              fontSize: "3.5rem",
               fontWeight: "950",
               textTransform: "uppercase",
               letterSpacing: "-0.04em",
@@ -423,90 +876,88 @@ export default function WorkMasonry() {
           </h2>
         </div>
 
-        {/* Canvas Area containing Scattered projects and floating labels */}
-        <div 
+        <div
           style={{
-            position: "relative",
             display: "flex",
-            flexDirection: "row",
-            flexWrap: "wrap",
             justifyContent: "center",
-            gap: "3rem",
-            width: "100%",
-            minHeight: "850px",
-            padding: "2rem 0"
+            background: "rgba(0,0,0,0.3)",
+            border: "1px solid var(--border-color)",
+            padding: "0.4rem",
+            borderRadius: "6px",
+            width: "max-content",
+            margin: "0 auto 4rem",
+            gap: "0.5rem"
           }}
         >
-          {/* Floating control labels (Filters) scattered at angles */}
-          {filters.map((f) => {
-            const isActive = activeFilter === f.label;
+          {["ALL", "WEB", "APP", "DESIGN"].map((cat) => {
+            const isActive = activeFilter === cat;
             return (
               <button
-                key={f.label}
-                onClick={() => setActiveFilter(f.label)}
+                key={cat}
+                onClick={() => setActiveFilter(cat)}
                 style={{
-                  position: "absolute",
-                  top: f.top,
-                  left: f.left,
-                  transform: `rotate(${f.angle})`,
-                  background: isActive ? "var(--accent-pink)" : "rgba(18, 18, 23, 0.65)",
+                  background: isActive ? "var(--accent-pink)" : "transparent",
                   color: isActive ? "#000" : "var(--text-secondary)",
-                  border: isActive ? "none" : "1px solid var(--border-color)",
+                  border: "none",
+                  padding: "0.5rem 1.5rem",
                   fontFamily: "var(--font-mono)",
                   fontSize: "0.8rem",
                   fontWeight: "bold",
-                  padding: "0.4rem 1rem",
-                  borderRadius: "4px",
                   cursor: "pointer",
-                  zIndex: 10,
-                  boxShadow: isActive ? "0 0 15px rgba(255, 0, 127, 0.35)" : "none",
-                  transition: "all 0.3s cubic-bezier(0.19, 1, 0.22, 1)"
+                  borderRadius: "4px",
+                  transition: "all 0.25s ease-out"
                 }}
-                className="glitch-hover"
               >
-                [{f.label}]
+                [{cat}]
               </button>
             );
           })}
+        </div>
 
-          {/* Scattered layout cards */}
-          {projectsData.map((project, idx) => {
-            // Apply asymmetric margin offsets based on index to scatter them
-            const offsets = [
-              { alignSelf: "flex-start", marginTop: "2rem" },
-              { alignSelf: "center", marginTop: "-3rem" },
-              { alignSelf: "flex-end", marginTop: "4rem" },
-              { alignSelf: "flex-start", marginTop: "-1rem" },
-              { alignSelf: "center", marginTop: "3rem" }
-            ];
-            const offsetStyle = offsets[idx % offsets.length];
-
-            return (
-              <div 
-                key={project.id} 
-                style={{ 
-                  ...offsetStyle,
-                  display: "flex",
-                  justifyContent: "center"
-                }}
-              >
-                <FracturedCard
-                  project={project}
-                  mousePos={mousePos}
-                  activeFilter={activeFilter}
-                  onSelect={(p) => setSelectedId(p.id)}
-                  reducedMotion={reducedMotion}
-                />
-              </div>
-            );
-          })}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(330px, 1fr))", gap: "2.5rem", width: "100%" }}>
+          <AnimatePresence mode="popLayout">
+            {projectsData
+              .filter((p) => activeFilter === "ALL" || p.category === activeFilter)
+              .map((project) => (
+                <motion.div
+                  key={project.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <FracturedCard
+                    project={project}
+                    mousePos={mousePos}
+                    activeFilter={activeFilter}
+                    onSelect={handleSelect}
+                    reducedMotion={reducedMotion}
+                  />
+                </motion.div>
+              ))}
+          </AnimatePresence>
         </div>
       </div>
+
+      {/* Decrypt-in breach sequence */}
+      <AnimatePresence>
+        {decryptProject && <DecryptSequence key="open" project={decryptProject} mode="open" onComplete={handleDecryptComplete} />}
+      </AnimatePresence>
+
+      {/* Decrypt-out (re-fracture) breach sequence */}
+      <AnimatePresence>
+        {encryptProject && <DecryptSequence key="close" project={encryptProject} mode="close" onComplete={handleEncryptComplete} />}
+      </AnimatePresence>
 
       {/* Case Study Detailed View */}
       <AnimatePresence>
         {selectedId && activeProject && (
-          <div 
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
             style={{
               position: "fixed",
               top: 0,
@@ -521,13 +972,19 @@ export default function WorkMasonry() {
               zIndex: 10000,
               padding: "2rem"
             }}
-            onClick={() => setSelectedId(null)}
+            onClick={handleClose}
           >
             <motion.div
-              layoutId={`card-${selectedId}`}
+              initial={{ opacity: 0, scale: 0.94, filter: "blur(6px)" }}
+              animate={
+                modalRevealed
+                  ? { opacity: 1, scale: 1, filter: "blur(0px)" }
+                  : { opacity: 0, scale: 0.94, filter: "blur(6px)" }
+              }
+              transition={{ type: "spring", stiffness: 260, damping: 24 }}
               style={{
                 background: "var(--bg-card)",
-                border: "1px solid var(--border-color)",
+                border: `1px solid ${activeProject.color}55`,
                 borderRadius: "16px",
                 width: "100%",
                 maxWidth: "800px",
@@ -535,13 +992,12 @@ export default function WorkMasonry() {
                 overflowY: "auto",
                 padding: "3.5rem 2.5rem",
                 position: "relative",
-                boxShadow: "0 30px 60px rgba(0,0,0,0.8), 0 0 40px rgba(0, 243, 255, 0.15)",
+                boxShadow: `0 30px 60px rgba(0,0,0,0.8), 0 0 40px ${activeProject.color}33`
               }}
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Back to archive esc button */}
-              <button 
-                onClick={() => setSelectedId(null)}
+              <button
+                onClick={handleClose}
                 style={{
                   position: "absolute",
                   top: "1.5rem",
@@ -562,27 +1018,79 @@ export default function WorkMasonry() {
               </button>
 
               <div style={{ display: "flex", flexDirection: "column", gap: "2.5rem" }}>
-                <div>
-                  <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.85rem", color: "var(--accent-cyan)", letterSpacing: "0.1em" }}>
+                <div style={{ textAlign: "left" }}>
+                  <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.85rem", color: activeProject.color, letterSpacing: "0.1em" }}>
                     {"// COMPLETED_MODULE_" + activeProject.category}
                   </span>
-                  <h3 style={{ fontSize: "2.5rem", fontWeight: "950", color: "#fff", marginTop: "0.5rem" }}>
-                    {activeProject.title}
+                  <h3 style={{ fontSize: "2rem", fontWeight: "950", color: "#fff", marginTop: "0.5rem" }}>
+                    <GlitchText text={activeProject.title} active={modalRevealed} duration={550} />
                   </h3>
                 </div>
 
-                {/* Hero image with scan reveal */}
-                <div style={{ height: "180px", width: "100%", background: activeProject.gradient, borderRadius: "8px", position: "relative", overflow: "hidden" }}>
-                  <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", background: "linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.7))" }}></div>
-                </div>
+                <motion.div
+                  initial={{ scaleY: 0 }}
+                  animate={{ scaleY: modalRevealed ? 1 : 0 }}
+                  transition={{ duration: 0.35, delay: 0.05 }}
+                  style={{
+                    height: "180px",
+                    width: "100%",
+                    background: activeProject.gradient,
+                    borderRadius: "8px",
+                    position: "relative",
+                    overflow: "hidden",
+                    transformOrigin: "top"
+                  }}
+                >
+                  <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", background: "linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.7))" }} />
+                </motion.div>
 
-                {/* Case study metadata stats */}
                 <div style={{ display: "grid", gridTemplateColumns: "1.5fr 1fr", gap: "2rem" }} className="modal-content-grid">
-                  <div>
-                    <h4 style={{ color: "#fff", marginBottom: "0.5rem", fontSize: "1.1rem" }}>System Spec Specs</h4>
-                    <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", lineHeight: "1.6", textAlign: "left" }}>
-                      {activeProject.description}
-                    </p>
+                  <div style={{ textAlign: "left" }}>
+                    <h4 style={{ color: "#fff", marginBottom: "0.5rem", fontSize: "1.1rem" }}>Project Overview</h4>
+                    {activeProject.detailedDescription ? (
+                      activeProject.detailedDescription.map((para, idx) => (
+                        <p key={idx} style={{ color: "var(--text-secondary)", fontSize: "0.95rem", lineHeight: "1.6", marginBottom: "1rem" }}>
+                          {para}
+                        </p>
+                      ))
+                    ) : (
+                      <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", lineHeight: "1.6" }}>{activeProject.description}</p>
+                    )}
+
+                    {activeProject.features && activeProject.features.length > 0 && (
+                      <div style={{ marginTop: "1.5rem" }}>
+                        <h5 style={{ color: "#fff", fontSize: "0.85rem", fontFamily: "var(--font-mono)", marginBottom: "0.5rem" }}>KEY_FEATURES:</h5>
+                        <ul style={{ color: "var(--text-secondary)", fontSize: "0.9rem", paddingLeft: "1.2rem", margin: 0, listStyleType: "square" }}>
+                          {activeProject.features.map((feat, idx) => (
+                            <li key={idx} style={{ marginBottom: "0.4rem" }}>
+                              {feat}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    <div style={{ marginTop: "1.5rem" }}>
+                      <h5 style={{ color: "#fff", fontSize: "0.85rem", fontFamily: "var(--font-mono)", marginBottom: "0.5rem" }}>TECHNOLOGIES_USED:</h5>
+                      <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+                        {(activeProject.tags || activeProject.technologies || []).map((tech) => (
+                          <span
+                            key={tech}
+                            style={{
+                              fontFamily: "var(--font-mono)",
+                              fontSize: "0.75rem",
+                              background: "rgba(255,255,255,0.03)",
+                              border: "1px solid var(--border-color)",
+                              padding: "0.2rem 0.5rem",
+                              borderRadius: "4px",
+                              color: "var(--text-primary)"
+                            }}
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
                   </div>
 
                   <div style={{ display: "flex", flexDirection: "column", gap: "1rem", background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)", padding: "1.2rem", borderRadius: "8px" }}>
@@ -601,15 +1109,13 @@ export default function WorkMasonry() {
                   </div>
                 </div>
 
-                {/* Offset bands structural image dividers inside case study details */}
                 <div style={{ display: "flex", flexDirection: "column", gap: "6px", width: "100%", margin: "1rem 0" }}>
-                  <div style={{ height: "40px", background: activeProject.gradient, opacity: 0.15, width: "100%", transform: "translate3d(-15px, 0, 0)", borderRadius: "4px" }} />
-                  <div style={{ height: "40px", background: activeProject.gradient, opacity: 0.25, width: "100%", transform: "translate3d(20px, 0, 0)", borderRadius: "4px" }} />
-                  <div style={{ height: "40px", background: activeProject.gradient, opacity: 0.15, width: "100%", transform: "translate3d(-8px, 0, 0)", borderRadius: "4px" }} />
+                  <div style={{ height: "16px", background: activeProject.gradient, opacity: 0.12, width: "100%", transform: "translate3d(-10px, 0, 0)", borderRadius: "4px" }} />
+                  <div style={{ height: "16px", background: activeProject.gradient, opacity: 0.22, width: "100%", transform: "translate3d(15px, 0, 0)", borderRadius: "4px" }} />
+                  <div style={{ height: "16px", background: activeProject.gradient, opacity: 0.12, width: "100%", transform: "translate3d(-5px, 0, 0)", borderRadius: "4px" }} />
                 </div>
 
-                {/* Stat counter results block */}
-                <div 
+                <div
                   style={{
                     background: "#0a0a0d",
                     border: "1px solid var(--border-color)",
@@ -621,59 +1127,64 @@ export default function WorkMasonry() {
                   }}
                 >
                   <span style={{ color: "var(--accent-pink)" }}>&gt; METRIC_DIAGNOSIS:</span>
-                  <div style={{ color: "#fff", marginTop: "0.5rem", fontWeight: "bold" }}>
-                    {activeProject.metrics}
-                  </div>
+                  <div style={{ color: "#fff", marginTop: "0.5rem", fontWeight: "bold" }}>{activeProject.metrics}</div>
                 </div>
 
-                <div style={{ display: "flex", gap: "1rem" }}>
-                  <a href="#gateway" onClick={() => setSelectedId(null)} style={btnStyle("var(--accent-cyan)", "#000")}>
-                    <ExternalLink size={16} />
-                    <span>LAUNCH DEC DEPLOYMENT</span>
-                  </a>
+                <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+                  {activeProject.githubUrl && (
+                    <a href={activeProject.githubUrl} target="_blank" rel="noopener noreferrer" style={btnStyle(activeProject.color, "#000")}>
+                      <ExternalLink size={16} />
+                      <span>LAUNCH REPO GATEWAY</span>
+                    </a>
+                  )}
+                  {activeProject.liveLink && activeProject.liveLink !== "#" && (
+                    <a href={activeProject.liveLink} target="_blank" rel="noopener noreferrer" style={btnStyle("var(--accent-cyan)", "#000")}>
+                      <ExternalLink size={16} />
+                      <span>LIVE APPLICATION</span>
+                    </a>
+                  )}
                 </div>
               </div>
             </motion.div>
-          </div>
+          </motion.div>
         )}
       </AnimatePresence>
 
       <style>{`
-        /* Duplicate ghost shadow alignment loop */
         @keyframes duplicate-ghost {
-          0%, 82%, 100% {
-            text-shadow: none;
-            transform: skew(0deg);
-          }
-          5%, 15% {
-            text-shadow: 4px 0 var(--accent-cyan), -4px 0 var(--accent-pink);
-            transform: skew(-2deg);
-          }
-          20%, 80% {
-            text-shadow: 2px 0 var(--accent-cyan), -2px 0 var(--accent-pink);
-            transform: skew(0deg);
-          }
+          0%, 85%, 100% { text-shadow: none; transform: skew(0deg); }
+          5%, 15% { text-shadow: 3px 0 var(--accent-cyan), -3px 0 var(--accent-pink); transform: skew(-1deg); }
+          20%, 80% { text-shadow: 1.5px 0 var(--accent-cyan), -1.5px 0 var(--accent-pink); transform: skew(0deg); }
         }
-        @media (max-width: 900px) {
-          button[style*="position: absolute"] {
-            position: static !important;
-            transform: none !important;
-            margin: 0.2rem !important;
-          }
-          div[style*="position: relative"] {
-            min-height: auto !important;
-            flex-direction: column !important;
-            align-items: center !important;
-          }
-          div[style*="align-self"] {
-            align-self: center !important;
-            margin-top: 0 !important;
-          }
+        @keyframes scan-sweep {
+          0% { top: -10%; }
+          100% { top: 100%; }
+        }
+        @keyframes rgb-jitter {
+          0%, 100% { transform: translate(0, 0); }
+          25% { transform: translate(-1px, 0.5px); }
+          50% { transform: translate(1px, -0.5px); }
+          75% { transform: translate(-0.5px, -1px); }
+        }
+        .glitch-shake {
+          animation: shake-noise 90ms steps(2) infinite;
+        }
+        @keyframes shake-noise {
+          0% { transform: translate(0, 0); }
+          100% { transform: translate(-1px, 1px); }
+        }
+        .cursor-blink {
+          animation: blink 0.8s steps(1) infinite;
+        }
+        @keyframes blink {
+          0%, 49% { opacity: 1; }
+          50%, 100% { opacity: 0; }
         }
         @media (max-width: 600px) {
-          .modal-content-grid {
-            grid-template-columns: 1fr !important;
-          }
+          .modal-content-grid { grid-template-columns: 1fr !important; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .glitch-shake, .cursor-blink { animation: none !important; }
         }
       `}</style>
     </section>
