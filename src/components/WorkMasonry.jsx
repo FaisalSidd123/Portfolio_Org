@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink } from "lucide-react";
+import OrbitGallerySection from "./OrbitGallerySection";
 
 // ============================================================
 // Project Database
@@ -294,8 +295,8 @@ function GlitchText({ text, active, duration = 500, style, as: Tag = "span" }) {
 
   useEffect(() => {
     if (!active) {
-      setDisplay(text);
-      return;
+      const t = setTimeout(() => setDisplay(text), 0);
+      return () => clearTimeout(t);
     }
     let frame = 0;
     const totalFrames = Math.max(6, Math.floor(duration / 28));
@@ -799,6 +800,7 @@ export default function WorkMasonry() {
   const [decryptId, setDecryptId] = useState(null); // playing the open sequence
   const [encryptId, setEncryptId] = useState(null); // playing the close sequence
   const [modalRevealed, setModalRevealed] = useState(false);
+  const [viewMode, setViewMode] = useState("3d"); // "3d" | "grid"
   const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
   const [reducedMotion, setReducedMotion] = useState(() =>
     typeof window !== "undefined" ? window.matchMedia("(prefers-reduced-motion: reduce)").matches : false
@@ -880,64 +882,127 @@ export default function WorkMasonry() {
           style={{
             display: "flex",
             justifyContent: "center",
-            background: "rgba(0,0,0,0.3)",
-            border: "1px solid var(--border-color)",
-            padding: "0.4rem",
-            borderRadius: "6px",
-            width: "max-content",
-            margin: "0 auto 4rem",
-            gap: "0.5rem"
+            alignItems: "center",
+            gap: "1rem",
+            marginBottom: "2.5rem",
+            flexWrap: "wrap"
           }}
         >
-          {["ALL", "WEB", "APP", "DESIGN"].map((cat) => {
-            const isActive = activeFilter === cat;
-            return (
-              <button
-                key={cat}
-                onClick={() => setActiveFilter(cat)}
-                style={{
-                  background: isActive ? "var(--accent-pink)" : "transparent",
-                  color: isActive ? "#000" : "var(--text-secondary)",
-                  border: "none",
-                  padding: "0.5rem 1.5rem",
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "0.8rem",
-                  fontWeight: "bold",
-                  cursor: "pointer",
-                  borderRadius: "4px",
-                  transition: "all 0.25s ease-out"
-                }}
-              >
-                [{cat}]
-              </button>
-            );
-          })}
+          <div
+            style={{
+              display: "flex",
+              background: "rgba(0,0,0,0.5)",
+              border: "1px solid var(--border-color)",
+              padding: "0.3rem",
+              borderRadius: "8px",
+              gap: "0.4rem"
+            }}
+          >
+            <button
+              onClick={() => setViewMode("3d")}
+              style={{
+                background: viewMode === "3d" ? "var(--accent-cyan)" : "transparent",
+                color: viewMode === "3d" ? "#000" : "var(--text-secondary)",
+                border: "none",
+                padding: "0.5rem 1.2rem",
+                fontFamily: "var(--font-mono)",
+                fontSize: "0.8rem",
+                fontWeight: "bold",
+                cursor: "pointer",
+                borderRadius: "6px",
+                transition: "all 0.25s ease-out"
+              }}
+            >
+              [ 🌐 3D ORBIT SYSTEM ]
+            </button>
+            <button
+              onClick={() => setViewMode("grid")}
+              style={{
+                background: viewMode === "grid" ? "var(--accent-pink)" : "transparent",
+                color: viewMode === "grid" ? "#000" : "var(--text-secondary)",
+                border: "none",
+                padding: "0.5rem 1.2rem",
+                fontFamily: "var(--font-mono)",
+                fontSize: "0.8rem",
+                fontWeight: "bold",
+                cursor: "pointer",
+                borderRadius: "6px",
+                transition: "all 0.25s ease-out"
+              }}
+            >
+              [ 🔲 FRACTURED GRID ]
+            </button>
+          </div>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(330px, 1fr))", gap: "2.5rem", width: "100%" }}>
-          <AnimatePresence mode="popLayout">
-            {projectsData
-              .filter((p) => activeFilter === "ALL" || p.category === activeFilter)
-              .map((project) => (
-                <motion.div
-                  key={project.id}
-                  layout
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <FracturedCard
-                    project={project}
-                    mousePos={mousePos}
-                    activeFilter={activeFilter}
-                    onSelect={handleSelect}
-                    reducedMotion={reducedMotion}
-                  />
-                </motion.div>
-              ))}
-          </AnimatePresence>
-        </div>
+        {viewMode === "3d" ? (
+          <OrbitGallerySection />
+        ) : (
+          <>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                background: "rgba(0,0,0,0.3)",
+                border: "1px solid var(--border-color)",
+                padding: "0.4rem",
+                borderRadius: "6px",
+                width: "max-content",
+                margin: "0 auto 3rem",
+                gap: "0.5rem"
+              }}
+            >
+              {["ALL", "WEB", "APP", "DESIGN"].map((cat) => {
+                const isActive = activeFilter === cat;
+                return (
+                  <button
+                    key={cat}
+                    onClick={() => setActiveFilter(cat)}
+                    style={{
+                      background: isActive ? "var(--accent-pink)" : "transparent",
+                      color: isActive ? "#000" : "var(--text-secondary)",
+                      border: "none",
+                      padding: "0.5rem 1.5rem",
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "0.8rem",
+                      fontWeight: "bold",
+                      cursor: "pointer",
+                      borderRadius: "4px",
+                      transition: "all 0.25s ease-out"
+                    }}
+                  >
+                    [{cat}]
+                  </button>
+                );
+              })}
+            </div>
+
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(330px, 1fr))", gap: "2.5rem", width: "100%" }}>
+              <AnimatePresence mode="popLayout">
+                {projectsData
+                  .filter((p) => activeFilter === "ALL" || p.category === activeFilter)
+                  .map((project) => (
+                    <motion.div
+                      key={project.id}
+                      layout
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <FracturedCard
+                        project={project}
+                        mousePos={mousePos}
+                        activeFilter={activeFilter}
+                        onSelect={handleSelect}
+                        reducedMotion={reducedMotion}
+                      />
+                    </motion.div>
+                  ))}
+              </AnimatePresence>
+            </div>
+          </>
+        )}
       </div>
 
       {/* Decrypt-in breach sequence */}

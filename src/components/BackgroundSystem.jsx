@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import { LightSpeed } from "./ui/light-speed";
 
 export default function BackgroundSystem({ activeSection = "hero" }) {
   const canvasRef = useRef(null);
@@ -173,6 +174,21 @@ export default function BackgroundSystem({ activeSection = "hero" }) {
         overflow: "hidden"
       }}
     >
+      {/* 0. WebGL LightSpeed Shader Background Layer (Hero Only) */}
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          opacity: activeSection === "hero" ? 0.85 : 0,
+          pointerEvents: "none",
+          transition: "opacity 0.8s ease-in-out"
+        }}
+      >
+        <LightSpeed paused={reducedMotion || activeSection !== "hero"} speed={0.8} />
+      </div>
       {/* 1. Spark Canvas */}
       <canvas 
         ref={canvasRef} 

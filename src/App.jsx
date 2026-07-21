@@ -5,6 +5,7 @@ import Lenis from "lenis";
 
 // Components
 import BackgroundSystem from "./components/BackgroundSystem";
+import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import ServicesPortals from "./components/ServicesPortals";
 import MethodSection from "./components/MethodSection";
@@ -83,10 +84,16 @@ function App() {
 
   return (
     <div style={{ position: "relative", width: "100%", overflowX: "hidden" }}>
+      {/* Persistent Navigation Bar */}
+      <Navbar />
+
       {/* Root Background Layer */}
       <BackgroundSystem activeSection={bgSection} />
+
       {/* Section 1: Hero Folder */}
-      <Hero />
+      <div id="hero">
+        <Hero />
+      </div>
 
       {/* Section 2: Services Portals Carousel */}
       <div id="portals">
