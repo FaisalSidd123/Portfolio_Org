@@ -83,7 +83,7 @@ function App() {
   }, []);
 
   return (
-    <div style={{ position: "relative", width: "100%", overflowX: "hidden" }}>
+    <div style={{ position: "relative", width: "100%", overflowX: "clip" }}>
       {/* Persistent Navigation Bar */}
       <Navbar />
 

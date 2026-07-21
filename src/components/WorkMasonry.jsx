@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink } from "lucide-react";
-import OrbitGallerySection from "./OrbitGallerySection";
+import { FlippingCard } from "./ui/flipping-card";
 
 // ============================================================
 // Project Database
@@ -489,305 +489,177 @@ function DecryptSequence({ project, onComplete, mode = "open" }) {
 }
 
 // ============================================================
-// FracturedCard
+// Flipping Card Front & Back Sub-components
 // ============================================================
-function FracturedCard({ project, mousePos, activeFilter, onSelect, reducedMotion }) {
-  const cardRef = useRef(null);
-  const [fractureRatio, setFractureRatio] = useState(1.0);
-  const [isAligned, setIsAligned] = useState(false);
-  const [isAmbientFractured, setIsAmbientFractured] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-
-  useEffect(() => {
-    if (reducedMotion || isAmbientFractured) return;
-
-    let isVisible = true;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        isVisible = entry.isIntersecting;
-      },
-      { threshold: 0.1 }
-    );
-
-    if (cardRef.current) observer.observe(cardRef.current);
-
-    const checkProximity = () => {
-      if (!isVisible || !cardRef.current) return;
-
-      const rect = cardRef.current.getBoundingClientRect();
-      const cardX = rect.left + rect.width / 2;
-      const cardY = rect.top + rect.height / 2;
-
-      const dx = mousePos.x - cardX;
-      const dy = mousePos.y - cardY;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-
-      const minDistance = 50;
-      const maxDistance = 260;
-
-      if (dist < minDistance) {
-        setFractureRatio(0);
-        setIsAligned(true);
-      } else if (dist > maxDistance) {
-        setFractureRatio(1.0);
-        setIsAligned(false);
-      } else {
-        const ratio = (dist - minDistance) / (maxDistance - minDistance);
-        setFractureRatio(ratio);
-        setIsAligned(false);
-      }
-    };
-
-    checkProximity();
-
-    return () => observer.disconnect();
-  }, [mousePos, reducedMotion, isAmbientFractured]);
-
-  useEffect(() => {
-    if (reducedMotion || isHovered) return;
-
-    const runAmbientSelfCorrect = () => {
-      if (Math.random() < 0.12) {
-        setIsAmbientFractured(true);
-        let step = 0;
-        const duration = 100;
-        const interval = setInterval(() => {
-          step++;
-          const progress = step / duration;
-          const val = Math.abs(Math.sin(progress * Math.PI - Math.PI / 2));
-          setFractureRatio(val);
-          setIsAligned(val < 0.05);
-          if (step >= duration) {
-            clearInterval(interval);
-            setFractureRatio(1.0);
-            setIsAmbientFractured(false);
-          }
-        }, 16);
-      }
-    };
-
-    const intervalId = setInterval(runAmbientSelfCorrect, 12000);
-    return () => clearInterval(intervalId);
-  }, [reducedMotion, isHovered]);
-
-  const isMismatched = activeFilter !== "ALL" && project.category !== activeFilter;
-
-  const sliceHeights = [
-    { inset: "inset(0% 0% 80% 0%)", index: 0 },
-    { inset: "inset(20% 0% 60% 0%)", index: 1 },
-    { inset: "inset(40% 0% 40% 0%)", index: 2 },
-    { inset: "inset(60% 0% 20% 0%)", index: 3 },
-    { inset: "inset(80% 0% 0% 0%)", index: 4 }
-  ];
-
+function ProjectCardFront({ project }) {
   return (
-    <motion.div
-      ref={cardRef}
-      layoutId={`card-shell-${project.id}`}
-      onClick={() => onSelect(project)}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      animate={{
-        opacity: isMismatched ? 0.08 : 1.0,
-        scale: isMismatched ? 0.9 : isAligned ? 1.03 : 1.0
-      }}
-      transition={{ type: "spring", stiffness: 220, damping: 22 }}
+    <div
       style={{
-        width: "100%",
-        height: "360px",
-        background: "var(--bg-card)",
-        border: "1px solid var(--border-color)",
-        borderRadius: "12px",
-        padding: "1.2rem",
-        cursor: "pointer",
-        position: "relative",
         display: "flex",
         flexDirection: "column",
+        height: "100%",
+        width: "100%",
+        padding: "1.2rem",
         justifyContent: "space-between",
-        boxShadow: isAligned ? `0 10px 25px rgba(${project.color === "#7cff67" ? "124, 255, 103" : "0, 243, 255"}, 0.1)` : "none",
-        borderColor: isAligned ? project.color : "var(--border-color)",
-        transition: "border-color 0.3s ease"
+        textAlign: "left",
+        background: "var(--bg-card)",
+        borderRadius: "inherit",
+        boxSizing: "border-box"
       }}
     >
-      {/* corner reticle — only visible when locked */}
-      {["tl", "tr", "bl", "br"].map((corner) => (
-        <span
-          key={corner}
-          style={{
-            position: "absolute",
-            width: "10px",
-            height: "10px",
-            borderColor: project.color,
-            opacity: isAligned ? 1 : 0,
-            transition: "opacity 0.2s ease",
-            pointerEvents: "none",
-            top: corner.startsWith("t") ? "6px" : "auto",
-            bottom: corner.startsWith("b") ? "6px" : "auto",
-            left: corner.endsWith("l") ? "6px" : "auto",
-            right: corner.endsWith("r") ? "6px" : "auto",
-            borderTop: corner.startsWith("t") ? `2px solid ${project.color}` : "none",
-            borderBottom: corner.startsWith("b") ? `2px solid ${project.color}` : "none",
-            borderLeft: corner.endsWith("l") ? `2px solid ${project.color}` : "none",
-            borderRight: corner.endsWith("r") ? `2px solid ${project.color}` : "none"
-          }}
-        />
-      ))}
-
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", color: "var(--text-secondary)" }}>
-          {"FILE//" + String(project.id).padStart(3, "0")}
+        <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", color: project.color, fontWeight: "bold" }}>
+          // {project.category}
         </span>
-        <div
-          style={{
-            width: "6px",
-            height: "6px",
-            borderRadius: "50%",
-            background: isAligned ? project.color : "var(--border-color)",
-            transition: "background 0.3s ease",
-            boxShadow: isAligned ? `0 0 6px ${project.color}` : "none"
-          }}
-        />
+        <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.7rem", color: "var(--text-secondary)" }}>
+          FILE//{String(project.id).padStart(3, "0")}
+        </span>
       </div>
 
       <div
         style={{
-          flex: 1,
-          margin: "1.5rem 0",
-          background: "#050507",
-          border: "1px solid rgba(255,255,255,0.03)",
+          height: "140px",
+          width: "100%",
           borderRadius: "8px",
-          overflow: "hidden",
-          position: "relative"
+          background: `linear-gradient(135deg, rgba(0,0,0,0.6), rgba(0,0,0,0.9)), ${project.gradient}`,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          margin: "0.8rem 0",
+          border: "1px solid rgba(255,255,255,0.06)",
+          position: "relative",
+          overflow: "hidden"
         }}
       >
-        {sliceHeights.map((slice) => {
-          const offsetMax = project.sliceOffsets[slice.index];
-          const translateVal = reducedMotion ? 0 : offsetMax * fractureRatio;
-          const caOffset = reducedMotion ? 0 : 1.5 * fractureRatio;
-
-          return (
-            <div
-              key={slice.index}
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100%",
-                clipPath: slice.inset,
-                transform: `translate3d(${translateVal}px, 0, 0)`,
-                transition: reducedMotion ? "none" : "transform 0.08s ease-out",
-                willChange: "transform",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center"
-              }}
-            >
-              <div
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  background: `linear-gradient(to bottom, rgba(0,0,0,0.85), rgba(0,0,0,0.95)), ${project.gradient}`,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: "3rem",
-                  fontWeight: "950",
-                  color: "rgba(255, 255, 255, 0.04)",
-                  textShadow: caOffset > 0 ? `${caOffset}px 0 rgba(0, 243, 255, 0.5), ${-caOffset}px 0 rgba(255, 0, 127, 0.5)` : "none"
-                }}
-              >
-                {project.title.substring(0, 2).toUpperCase()}
-              </div>
-            </div>
-          );
-        })}
-
+        <span style={{ fontSize: "2.8rem", fontWeight: "950", color: "rgba(255,255,255,0.15)", letterSpacing: "0.05em" }}>
+          {project.title.substring(0, 2).toUpperCase()}
+        </span>
         <div
           style={{
             position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            backgroundImage: "linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px)",
-            backgroundSize: "100% 8px",
-            pointerEvents: "none"
-          }}
-        />
-
-        {/* decrypt prompt on hover/lock */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: "8px",
-            right: "10px",
+            bottom: "10px",
+            left: "12px",
+            background: "rgba(0,0,0,0.75)",
+            backdropFilter: "blur(4px)",
+            padding: "2px 8px",
+            borderRadius: "4px",
+            border: `1px solid ${project.color}44`,
+            color: project.color,
             fontFamily: "var(--font-mono)",
             fontSize: "0.65rem",
-            color: project.color,
-            opacity: isAligned ? 1 : 0,
-            transform: isAligned ? "translateY(0)" : "translateY(4px)",
-            transition: "all 0.2s ease",
-            pointerEvents: "none"
+            fontWeight: "bold"
           }}
         >
-          click to decrypt »
+          {project.subtitle}
         </div>
       </div>
 
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
-        <div style={{ maxWidth: "80%", textAlign: "left" }}>
-          <h3
-            style={{
-              fontSize: "1rem",
-              fontWeight: "800",
-              color: "#fff",
-              fontFamily: "var(--font-sans)",
-              letterSpacing: "-0.01em",
-              whiteSpace: "nowrap",
-              overflow: "hidden",
-              textOverflow: "ellipsis"
-            }}
-          >
-            {project.title}
-          </h3>
-          <span
-            style={{
-              display: "block",
-              marginTop: "0.2rem",
-              fontFamily: "var(--font-mono)",
-              fontSize: "0.7rem",
-              color: isAligned ? project.color : "var(--text-secondary)",
-              transition: "color 0.2s ease"
-            }}
-          >
-            {isAligned ? `[${project.category}_LOCK_OK]` : `[FRACTURED_STATE]`}
+      <div>
+        <h3 style={{ fontSize: "1.15rem", fontWeight: "900", color: "#fff", marginBottom: "0.4rem", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+          {project.title}
+        </h3>
+        <p style={{ fontSize: "0.8rem", color: "var(--text-secondary)", lineHeight: "1.45", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+          {project.description}
+        </p>
+      </div>
+
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "0.6rem", borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: "0.6rem" }}>
+        <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.65rem", color: "var(--text-secondary)" }}>
+          HOVER CARD TO ROTATE 🔄
+        </span>
+        <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.7rem", color: project.color, fontWeight: "bold" }}>
+          [ REVEAL ]
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function ProjectCardBack({ project, onOpenModal }) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
+        width: "100%",
+        padding: "1.3rem",
+        justifyContent: "space-between",
+        textAlign: "left",
+        background: "#0a0a10",
+        borderRadius: "inherit",
+        boxSizing: "border-box"
+      }}
+    >
+      <div>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.6rem" }}>
+          <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", color: project.color, fontWeight: "bold" }}>
+            PROJECT_OVERVIEW
+          </span>
+          <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.7rem", color: "var(--text-secondary)" }}>
+            {project.year}
           </span>
         </div>
 
-        <AnimatePresence>
-          {isAligned && (
-            <motion.div
-              initial={{ scale: 0.5, opacity: 0 }}
-              animate={{ scale: [0.5, 1.2, 1], opacity: 1 }}
-              exit={{ scale: 0.5, opacity: 0 }}
-              transition={{ duration: 0.2 }}
+        <p style={{ fontSize: "0.82rem", color: "#d1d5db", lineHeight: "1.45", marginBottom: "0.8rem" }}>
+          {project.description}
+        </p>
+
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginBottom: "0.8rem" }}>
+          {project.tags.slice(0, 4).map((tag) => (
+            <span
+              key={tag}
               style={{
-                padding: "0.3rem 0.6rem",
-                background: project.color,
-                color: "#000",
                 fontFamily: "var(--font-mono)",
-                fontSize: "0.6rem",
-                fontWeight: "bold",
-                borderRadius: "4px"
+                fontSize: "0.65rem",
+                padding: "2px 8px",
+                borderRadius: "4px",
+                background: "rgba(255,255,255,0.05)",
+                border: "1px solid rgba(255,255,255,0.1)",
+                color: "var(--text-secondary)"
               }}
             >
-              OK_
-            </motion.div>
-          )}
-        </AnimatePresence>
+              #{tag}
+            </span>
+          ))}
+        </div>
       </div>
-    </motion.div>
+
+      <div>
+        <div style={{ background: "rgba(0,0,0,0.5)", border: "1px solid rgba(255,255,255,0.08)", padding: "0.5rem 0.8rem", borderRadius: "6px", fontFamily: "var(--font-mono)", fontSize: "0.7rem", color: project.color, marginBottom: "0.8rem" }}>
+          {project.metrics}
+        </div>
+
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onOpenModal(project);
+          }}
+          style={{
+            width: "100%",
+            padding: "0.75rem 1rem",
+            background: project.color,
+            color: "#000",
+            fontFamily: "var(--font-mono)",
+            fontSize: "0.78rem",
+            fontWeight: "900",
+            border: "none",
+            borderRadius: "6px",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "0.5rem",
+            letterSpacing: "0.05em",
+            boxShadow: `0 0 15px ${project.color}44`,
+            transition: "transform 0.2s ease, filter 0.2s ease"
+          }}
+        >
+          <span>VIEW PORTFOLIO CASE STUDY</span>
+          <span>→</span>
+        </button>
+      </div>
+    </div>
   );
 }
 
@@ -800,8 +672,6 @@ export default function WorkMasonry() {
   const [decryptId, setDecryptId] = useState(null); // playing the open sequence
   const [encryptId, setEncryptId] = useState(null); // playing the close sequence
   const [modalRevealed, setModalRevealed] = useState(false);
-  const [viewMode, setViewMode] = useState("3d"); // "3d" | "grid"
-  const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
   const [reducedMotion, setReducedMotion] = useState(() =>
     typeof window !== "undefined" ? window.matchMedia("(prefers-reduced-motion: reduce)").matches : false
   );
@@ -811,12 +681,6 @@ export default function WorkMasonry() {
     const listener = (e) => setReducedMotion(e.matches);
     media.addEventListener("change", listener);
     return () => media.removeEventListener("change", listener);
-  }, []);
-
-  useEffect(() => {
-    const handleMouseMove = (e) => setMousePos({ x: e.clientX, y: e.clientY });
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
   const decryptProject = projectsData.find((p) => p.id === decryptId);
@@ -859,22 +723,21 @@ export default function WorkMasonry() {
       style={{ background: "transparent", borderBottom: "1px solid var(--border-color)", position: "relative", overflow: "hidden" }}
     >
       <div style={{ maxWidth: "1200px", margin: "0 auto", position: "relative", zIndex: 2 }}>
-        <div style={{ textAlign: "center", marginBottom: "4rem" }}>
+        <div style={{ textAlign: "center", marginBottom: "3rem" }}>
           <span style={{ fontFamily: "var(--font-mono)", color: "var(--accent-pink)", fontSize: "0.85rem", letterSpacing: "0.2em" }}>
-            {"// FRACTURED PROJECT LOGS"}
+            {"// PORTFOLIO ARCHIVE"}
           </span>
           <h2
             style={{
-              fontSize: "3.5rem",
+              fontSize: "3.2rem",
               fontWeight: "950",
               textTransform: "uppercase",
               letterSpacing: "-0.04em",
-              margin: "1rem 0 0",
-              animation: "duplicate-ghost 4s infinite",
+              margin: "0.8rem 0 0",
               color: "#fff"
             }}
           >
-            BROKEN ON PURPOSE.
+            SELECTED WORKS.
           </h2>
         </div>
 
@@ -882,127 +745,72 @@ export default function WorkMasonry() {
           style={{
             display: "flex",
             justifyContent: "center",
-            alignItems: "center",
-            gap: "1rem",
-            marginBottom: "2.5rem",
-            flexWrap: "wrap"
+            background: "rgba(0,0,0,0.4)",
+            border: "1px solid var(--border-color)",
+            padding: "0.4rem",
+            borderRadius: "8px",
+            width: "max-content",
+            margin: "0 auto 3.5rem",
+            gap: "0.5rem"
           }}
         >
-          <div
-            style={{
-              display: "flex",
-              background: "rgba(0,0,0,0.5)",
-              border: "1px solid var(--border-color)",
-              padding: "0.3rem",
-              borderRadius: "8px",
-              gap: "0.4rem"
-            }}
-          >
-            <button
-              onClick={() => setViewMode("3d")}
-              style={{
-                background: viewMode === "3d" ? "var(--accent-cyan)" : "transparent",
-                color: viewMode === "3d" ? "#000" : "var(--text-secondary)",
-                border: "none",
-                padding: "0.5rem 1.2rem",
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.8rem",
-                fontWeight: "bold",
-                cursor: "pointer",
-                borderRadius: "6px",
-                transition: "all 0.25s ease-out"
-              }}
-            >
-              [ 🌐 3D ORBIT SYSTEM ]
-            </button>
-            <button
-              onClick={() => setViewMode("grid")}
-              style={{
-                background: viewMode === "grid" ? "var(--accent-pink)" : "transparent",
-                color: viewMode === "grid" ? "#000" : "var(--text-secondary)",
-                border: "none",
-                padding: "0.5rem 1.2rem",
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.8rem",
-                fontWeight: "bold",
-                cursor: "pointer",
-                borderRadius: "6px",
-                transition: "all 0.25s ease-out"
-              }}
-            >
-              [ 🔲 FRACTURED GRID ]
-            </button>
-          </div>
+          {["ALL", "WEB", "APP", "DESIGN"].map((cat) => {
+            const isActive = activeFilter === cat;
+            return (
+              <button
+                key={cat}
+                onClick={() => setActiveFilter(cat)}
+                style={{
+                  background: isActive ? "var(--accent-pink)" : "transparent",
+                  color: isActive ? "#000" : "var(--text-secondary)",
+                  border: "none",
+                  padding: "0.5rem 1.5rem",
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "0.8rem",
+                  fontWeight: "bold",
+                  cursor: "pointer",
+                  borderRadius: "6px",
+                  transition: "all 0.25s ease-out"
+                }}
+              >
+                [{cat}]
+              </button>
+            );
+          })}
         </div>
 
-        {viewMode === "3d" ? (
-          <OrbitGallerySection />
-        ) : (
-          <>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                background: "rgba(0,0,0,0.3)",
-                border: "1px solid var(--border-color)",
-                padding: "0.4rem",
-                borderRadius: "6px",
-                width: "max-content",
-                margin: "0 auto 3rem",
-                gap: "0.5rem"
-              }}
-            >
-              {["ALL", "WEB", "APP", "DESIGN"].map((cat) => {
-                const isActive = activeFilter === cat;
-                return (
-                  <button
-                    key={cat}
-                    onClick={() => setActiveFilter(cat)}
-                    style={{
-                      background: isActive ? "var(--accent-pink)" : "transparent",
-                      color: isActive ? "#000" : "var(--text-secondary)",
-                      border: "none",
-                      padding: "0.5rem 1.5rem",
-                      fontFamily: "var(--font-mono)",
-                      fontSize: "0.8rem",
-                      fontWeight: "bold",
-                      cursor: "pointer",
-                      borderRadius: "4px",
-                      transition: "all 0.25s ease-out"
-                    }}
-                  >
-                    [{cat}]
-                  </button>
-                );
-              })}
-            </div>
-
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(330px, 1fr))", gap: "2.5rem", width: "100%" }}>
-              <AnimatePresence mode="popLayout">
-                {projectsData
-                  .filter((p) => activeFilter === "ALL" || p.category === activeFilter)
-                  .map((project) => (
-                    <motion.div
-                      key={project.id}
-                      layout
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.9 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <FracturedCard
-                        project={project}
-                        mousePos={mousePos}
-                        activeFilter={activeFilter}
-                        onSelect={handleSelect}
-                        reducedMotion={reducedMotion}
-                      />
-                    </motion.div>
-                  ))}
-              </AnimatePresence>
-            </div>
-          </>
-        )}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(330px, 1fr))",
+            gap: "2.5rem",
+            width: "100%",
+            justifyItems: "center"
+          }}
+        >
+          <AnimatePresence mode="popLayout">
+            {projectsData
+              .filter((p) => activeFilter === "ALL" || p.category === activeFilter)
+              .map((project) => (
+                <motion.div
+                  key={project.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.25 }}
+                  style={{ width: "100%", display: "flex", justifyContent: "center" }}
+                >
+                  <FlippingCard
+                    width="100%"
+                    height={380}
+                    frontContent={<ProjectCardFront project={project} />}
+                    backContent={<ProjectCardBack project={project} onOpenModal={handleSelect} />}
+                  />
+                </motion.div>
+              ))}
+          </AnimatePresence>
+        </div>
       </div>
 
       {/* Decrypt-in breach sequence */}
