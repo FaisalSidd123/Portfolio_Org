@@ -297,7 +297,7 @@ html.lenis {
   scroll-behavior: auto !important;
 }
 .lenis-smooth [data-lenis-prevent] {
-  overflow: clip;
+  overscroll-behavior: contain;
 }
 .lenis-smooth iframe {
   pointer-events: none;

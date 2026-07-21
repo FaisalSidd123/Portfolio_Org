@@ -11,7 +11,7 @@ const projectsData = [
     id: 1,
     title: "QuranVision",
     subtitle: "Islamic Knowledge Platform",
-    image: "/Capture1.PNG",
+    image: "/QuranVision.PNG",
     description: "A comprehensive digital platform bringing Islamic knowledge to users worldwide with modern technology and intuitive design.",
     detailedDescription: [
       "QuranVision is a feature-rich web application providing seamless access to Quranic verses with multiple translations, tafsir (exegesis), and audio recitations. The platform includes an extensive Hadith library with detailed explanations and scholarly commentary.",
@@ -44,7 +44,7 @@ const projectsData = [
     id: 2,
     title: "DreamFragrance",
     subtitle: "E-commerce Perfume Store",
-    image: "/Capture2.jpg",
+    image: "/DreamFragrance.jpg",
     description: "An elegant e-commerce platform for perfumes with smooth animations, modern design, admin portal, and all essential online shopping features.",
     detailedDescription: [
       "DreamFragrance is a visually captivating perfume e-commerce website designed with a focus on luxury aesthetics and a delightful user experience. The homepage features engaging animations, smooth transitions, and an intuitive navigation flow to immerse visitors in the shopping experience.",
@@ -79,7 +79,7 @@ const projectsData = [
     id: 3,
     title: "SoleHub",
     subtitle: "E-commerce Shoes Store",
-    image: "/Capture3.jpg",
+    image: "/SoleHub.jpg",
     description: "A stylish e-commerce platform for shoes with a modern interface, smooth shopping experience, and essential online store features.",
     detailedDescription: [
       "SoleHub is a sleek and modern e-commerce website dedicated to footwear, built with a focus on performance, responsiveness, and an engaging user experience. The homepage highlights trending shoes and collections with visually appealing layouts and smooth transitions.",
@@ -110,7 +110,7 @@ const projectsData = [
     id: 4,
     title: "Anonymous",
     subtitle: "Anonymous Messaging Platform",
-    image: "/Capture4.png",
+    image: "/Anonymous.png",
     description: "A full-stack anonymous messaging platform where users receive messages through a unique shareable link with AI-powered message suggestions.",
     detailedDescription: [
       "AnonMsg is a full-stack anonymous messaging web application built with Next.js and MongoDB, where users can receive anonymous messages through a unique personalized shareable link. The platform focuses on privacy, security, and an engaging user experience.",
@@ -142,7 +142,7 @@ const projectsData = [
     id: 5,
     title: "Opti-Manage",
     subtitle: "Brand Management Platform",
-    image: "/Capture.PNG",
+    image: "/OptiManage.PNG",
     description: "A professional brand website showcasing digital marketing and influencer management services.",
     detailedDescription: [
       "Opti-Manage is a sleek, modern brand website designed to showcase the company's expertise in influencer management, sports marketing, and digital brand strategy. The platform highlights the company's services, values, and success stories through an engaging user interface.",
@@ -172,7 +172,7 @@ const projectsData = [
     id: 6,
     title: "MYP (Manage Your Priorities)",
     subtitle: "Contact & Client Management System",
-    image: "/Capture5.PNG",
+    image: "/MYP.png",
     description: "A full-stack contact & client management system featuring an AI-based contact parser using LLaMA 3.1.",
     detailedDescription: [
       "MYP is a full-stack contact & client management system built using Next.js, Supabase, and Tailwind CSS. The application implements secure JWT-based authentication and role-based access for robust operations.",
@@ -202,7 +202,7 @@ const projectsData = [
     id: 7,
     title: "UrbanEdge",
     subtitle: "Editorial Real Estate Portal",
-    image: "/Capture6.PNG",
+    image: "/Urban Edge.png",
     description: "A premium real estate agency platform highlighting elite property displays, search filters, interactive bookings, and buttery-smooth Lenis motion grids.",
     detailedDescription: [
       "UrbanEdge is an editorial real estate web portal designed to showcase high-end architecture and luxury properties with high-contrast visual design and smooth motion.",
@@ -217,7 +217,7 @@ const projectsData = [
     ],
     tags: ["React", "Tailwind CSS", "Lenis", "GSAP", "Framer Motion"],
     liveLink: "#",
-    githubUrl: "https://github.com",
+    githubUrl: "https://github.com/FaisalSidd123/Real_State",
     category: "WEB",
     color: "#ec4899",
     gradient: "linear-gradient(135deg, #ec4899 0%, #ff007f 100%)",
@@ -231,7 +231,7 @@ const projectsData = [
     id: 8,
     title: "F&W Glitch",
     subtitle: "IT Services Website",
-    image: "/Capture3.jpeg",
+    image: "/OptiManage.PNG",
     description: "A modern IT brand website for F&W Glitch that showcases technology services, expertise, and business solutions with a clean and responsive user interface.",
     detailedDescription: [
       "F&W Glitch is a digital agency showcase designed to capture lead generation and highlight modern development solutions.",
@@ -259,7 +259,7 @@ const projectsData = [
     id: 9,
     title: "Simon Game",
     subtitle: "Classic Memory Challenge",
-    image: "/Capture2.png",
+    image: "/Simon Game.png",
     description: "An interactive browser-based version of the classic Simon memory game. Players must repeat increasingly complex sequences of colors and sounds.",
     detailedDescription: [
       "Simon Game is a sleek, browser-native memory challenge utilizing semantic HTML elements, custom CSS variables, and raw JavaScript DOM event loops.",
@@ -518,32 +518,29 @@ function ProjectCardFront({ project }) {
 
       <div
         style={{
-          height: "140px",
+          height: "145px",
           width: "100%",
           borderRadius: "8px",
-          background: `linear-gradient(135deg, rgba(0,0,0,0.6), rgba(0,0,0,0.9)), ${project.gradient}`,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+          backgroundImage: `url("${encodeURI(project.image)}")`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
           margin: "0.8rem 0",
-          border: "1px solid rgba(255,255,255,0.06)",
+          border: "1px solid rgba(255,255,255,0.1)",
           position: "relative",
           overflow: "hidden"
         }}
       >
-        <span style={{ fontSize: "2.8rem", fontWeight: "950", color: "rgba(255,255,255,0.15)", letterSpacing: "0.05em" }}>
-          {project.title.substring(0, 2).toUpperCase()}
-        </span>
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.15) 100%)" }} />
         <div
           style={{
             position: "absolute",
-            bottom: "10px",
-            left: "12px",
-            background: "rgba(0,0,0,0.75)",
+            bottom: "8px",
+            left: "8px",
+            background: "rgba(0,0,0,0.8)",
             backdropFilter: "blur(4px)",
             padding: "2px 8px",
             borderRadius: "4px",
-            border: `1px solid ${project.color}44`,
+            border: `1px solid ${project.color}55`,
             color: project.color,
             fontFamily: "var(--font-mono)",
             fontSize: "0.65rem",
@@ -831,6 +828,7 @@ export default function WorkMasonry() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
+            data-lenis-prevent="true"
             style={{
               position: "fixed",
               top: 0,
@@ -855,14 +853,16 @@ export default function WorkMasonry() {
                   : { opacity: 0, scale: 0.94, filter: "blur(6px)" }
               }
               transition={{ type: "spring", stiffness: 260, damping: 24 }}
+              data-lenis-prevent="true"
               style={{
                 background: "var(--bg-card)",
                 border: `1px solid ${activeProject.color}55`,
                 borderRadius: "16px",
                 width: "100%",
-                maxWidth: "800px",
+                maxWidth: "820px",
                 maxHeight: "85vh",
                 overflowY: "auto",
+                WebkitOverflowScrolling: "touch",
                 padding: "3.5rem 2.5rem",
                 position: "relative",
                 boxShadow: `0 30px 60px rgba(0,0,0,0.8), 0 0 40px ${activeProject.color}33`
@@ -905,16 +905,18 @@ export default function WorkMasonry() {
                   animate={{ scaleY: modalRevealed ? 1 : 0 }}
                   transition={{ duration: 0.35, delay: 0.05 }}
                   style={{
-                    height: "180px",
+                    height: "220px",
                     width: "100%",
-                    background: activeProject.gradient,
+                    backgroundImage: `url("${encodeURI(activeProject.image)}")`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
                     borderRadius: "8px",
                     position: "relative",
                     overflow: "hidden",
                     transformOrigin: "top"
                   }}
                 >
-                  <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", background: "linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.7))" }} />
+                  <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", background: "linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.85))" }} />
                 </motion.div>
 
                 <div style={{ display: "grid", gridTemplateColumns: "1.5fr 1fr", gap: "2rem" }} className="modal-content-grid">
