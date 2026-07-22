@@ -100,7 +100,7 @@ export default function MethodSection() {
         </div>
 
         {/* Desktop Circuit SVG */}
-        <div style={{ width: "100%", overflowX: "auto", padding: "2rem 0" }} className="hide-scrollbar">
+        <div style={{ width: "100%", overflowX: "auto", padding: "2rem 0" }} className="hide-scrollbar method-desktop-circuit">
           <div style={{ width: "1000px", position: "relative", margin: "0 auto" }}>
             <svg viewBox="0 0 1000 240" style={{ width: "100%", height: "auto" }}>
               {/* Grid Circuit Backplates */}
@@ -206,7 +206,69 @@ export default function MethodSection() {
             </div>
           </div>
         </div>
+
+        {/* Mobile Vertical Timeline Cards (visible on mobile < 800px) */}
+        <div className="method-mobile-cards" style={{ display: "none", flexDirection: "column", gap: "1.25rem", padding: "0 1rem" }}>
+          {steps.map((step, idx) => (
+            <div
+              key={idx}
+              style={{
+                background: "rgba(18, 18, 24, 0.85)",
+                border: `1px solid ${step.color}44`,
+                borderRadius: "12px",
+                padding: "1.25rem 1.5rem",
+                textAlign: "left",
+                position: "relative",
+                backdropFilter: "blur(12px)",
+                boxShadow: `0 8px 24px rgba(0,0,0,0.4)`
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.5rem" }}>
+                <div
+                  style={{
+                    width: "30px",
+                    height: "30px",
+                    borderRadius: "50%",
+                    background: `${step.color}22`,
+                    border: `1px solid ${step.color}`,
+                    color: step.color,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "0.75rem",
+                    fontWeight: "bold",
+                    flexShrink: 0
+                  }}
+                >
+                  0{idx + 1}
+                </div>
+                <span
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "1.05rem",
+                    fontWeight: "bold",
+                    color: step.color,
+                    letterSpacing: "0.05em"
+                  }}
+                >
+                  {step.name}
+                </span>
+              </div>
+              <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", lineHeight: "1.5", margin: 0 }}>
+                {step.desc}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
+
+      <style>{`
+        @media (max-width: 800px) {
+          .method-desktop-circuit { display: none !important; }
+          .method-mobile-cards { display: flex !important; }
+        }
+      `}</style>
     </section>
   );
 }

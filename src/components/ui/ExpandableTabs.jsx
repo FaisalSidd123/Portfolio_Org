@@ -12,10 +12,10 @@ const Separator = () => (
   <div
     aria-hidden="true"
     style={{
-      width: "1px",
-      height: "18px",
-      background: "rgba(255, 255, 255, 0.12)",
-      margin: "0 4px",
+      width: "1.2px",
+      height: "22px",
+      background: "rgba(255, 255, 255, 0.16)",
+      margin: "0 6px",
       flexShrink: 0,
     }}
   />
@@ -47,7 +47,7 @@ export function ExpandableTabs({
       style={{
         display: "flex",
         alignItems: "center",
-        gap: "3px",
+        gap: "4px",
       }}
     >
       {tabs.map((tab, index) => {
@@ -67,44 +67,44 @@ export function ExpandableTabs({
             style={{
               display: "flex",
               alignItems: "center",
-              gap: isActive ? "6px" : "0px",
-              borderRadius: "8px",
-              padding: isActive ? "6px 12px 6px 8px" : "6px 8px",
-              fontSize: "0.84rem",
+              gap: isActive ? "8px" : "0px",
+              borderRadius: "10px",
+              padding: isActive ? "7px 14px 7px 10px" : "7px 10px",
+              fontSize: "0.88rem",
               fontFamily: "var(--font-poppins)",
-              fontWeight: 500,
+              fontWeight: 600,
               cursor: "pointer",
               background: isActive
-                ? "rgba(255, 255, 255, 0.08)"
+                ? "rgba(0, 243, 255, 0.15)"
                 : "transparent",
               border: isActive
-                ? "1px solid rgba(255, 255, 255, 0.15)"
+                ? "1px solid rgba(0, 243, 255, 0.35)"
                 : "1px solid transparent",
               color: isActive
-                ? (activeColor || "#ffffff")
-                : "var(--text-secondary)",
+                ? (activeColor || "var(--accent-cyan)")
+                : "#cbd5e1",
               whiteSpace: "nowrap",
               outline: "none",
               userSelect: "none"
             }}
             whileHover={{
               background: isActive
-                ? "rgba(255, 255, 255, 0.12)"
-                : "rgba(255, 255, 255, 0.05)",
+                ? "rgba(0, 243, 255, 0.2)"
+                : "rgba(255, 255, 255, 0.08)",
               color: "#ffffff"
             }}
-            whileTap={{ scale: 0.98 }}
+            whileTap={{ scale: 0.97 }}
           >
             <div
               style={{
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                color: isActive ? (activeColor || "var(--accent-cyan)") : "#94a3b8",
+                color: isActive ? (activeColor || "var(--accent-cyan)") : "#cbd5e1",
                 transition: "color 0.2s ease"
               }}
             >
-              <Icon size={16} strokeWidth={2} />
+              <Icon size={18} strokeWidth={2.2} />
             </div>
             <AnimatePresence initial={false} mode="wait">
               {isActive && (
@@ -118,7 +118,7 @@ export function ExpandableTabs({
                     display: "inline-block",
                     fontFamily: "var(--font-poppins)",
                     fontWeight: 600,
-                    fontSize: "0.82rem",
+                    fontSize: "0.86rem",
                     lineHeight: 1
                   }}
                 >

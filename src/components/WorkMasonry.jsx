@@ -744,9 +744,10 @@ export default function WorkMasonry() {
         </div>
 
         <div
+          className="projects-grid-container"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(330px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
             gap: "2.5rem",
             width: "100%",
             justifyItems: "center"
@@ -794,6 +795,7 @@ export default function WorkMasonry() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             data-lenis-prevent="true"
+            className="modal-overlay-container"
             style={{
               position: "fixed",
               top: 0,
@@ -819,6 +821,7 @@ export default function WorkMasonry() {
               }
               transition={{ type: "spring", stiffness: 260, damping: 24 }}
               data-lenis-prevent="true"
+              className="modal-card-dialog"
               style={{
                 background: "var(--bg-card)",
                 border: `1px solid ${activeProject.color}55`,
@@ -1022,6 +1025,8 @@ export default function WorkMasonry() {
         }
         @media (max-width: 600px) {
           .modal-content-grid { grid-template-columns: 1fr !important; }
+          .modal-overlay-container { padding: 0.75rem !important; }
+          .modal-card-dialog { padding: 2.2rem 1.2rem !important; maxHeight: 90vh !important; }
         }
         @media (prefers-reduced-motion: reduce) {
           .glitch-shake, .cursor-blink { animation: none !important; }

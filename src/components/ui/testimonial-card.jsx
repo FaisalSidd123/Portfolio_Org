@@ -126,7 +126,7 @@ export const ClientsSection = ({
         }}
       >
         {/* Left Column: Sticky Summary */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem", textAlign: "left", position: "sticky", top: "100px" }}>
+        <div className="testimonials-left-column" style={{ display: "flex", flexDirection: "column", gap: "1.5rem", textAlign: "left", position: "sticky", top: "100px" }}>
           <div
             style={{
               display: "inline-flex",
@@ -145,14 +145,14 @@ export const ClientsSection = ({
             <span style={{ color: "var(--text-secondary)" }}>{tagLabel}</span>
           </div>
 
-          <h2 style={{ fontSize: "3rem", fontWeight: "950", color: "#fff", textTransform: "uppercase", letterSpacing: "-0.03em", margin: 0 }}>
+          <h2 className="testimonials-title" style={{ fontSize: "3rem", fontWeight: "950", color: "#fff", textTransform: "uppercase", letterSpacing: "-0.03em", margin: 0 }}>
             {title}
           </h2>
           <p style={{ fontSize: "1.05rem", color: "var(--text-secondary)", lineHeight: "1.6" }}>
             {description}
           </p>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1rem", marginTop: "1rem" }}>
+          <div className="testimonials-stats-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1rem", marginTop: "1rem" }}>
             {stats.map((stat) => (
               <StatCard key={stat.label} {...stat} />
             ))}
@@ -203,7 +203,7 @@ export const ClientsSection = ({
         </div>
 
         {/* Right Column: Stacked Testimonial Cards */}
-        <div style={{ position: "relative", display: "flex", flexDirection: "column" }}>
+        <div className="testimonials-cards-column" style={{ position: "relative", display: "flex", flexDirection: "column" }}>
           {testimonials.map((testimonial, index) => (
             <StickyTestimonialCard
               key={testimonial.name}
@@ -214,6 +214,26 @@ export const ClientsSection = ({
           ))}
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 900px) {
+          .testimonials-left-column {
+            position: relative !important;
+            top: 0 !important;
+          }
+          .testimonials-title {
+            font-size: 2.2rem !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .testimonials-stats-grid {
+            grid-template-columns: repeat(1, 1fr) !important;
+          }
+          .testimonials-title {
+            font-size: 1.8rem !important;
+          }
+        }
+      `}</style>
     </section>
   );
 };

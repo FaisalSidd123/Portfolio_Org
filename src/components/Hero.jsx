@@ -177,7 +177,13 @@ export default function Hero() {
         }
         @media (max-width: 768px) {
           .glitch-title {
-            font-size: 3.5rem;
+            font-size: 3.2rem;
+          }
+        }
+        @media (max-width: 480px) {
+          .glitch-title {
+            font-size: 2.3rem;
+            letter-spacing: -0.02em;
           }
         }
         @keyframes bounce {

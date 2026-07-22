@@ -71,15 +71,15 @@ export default function Navbar() {
           left: 0,
           right: 0,
           zIndex: 5000,
-          height: "64px",
+          height: "72px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          padding: "0 2rem",
+          padding: "0 2.5rem",
           background: scrolled
-            ? "rgba(0, 0, 0, 0.88)"
+            ? "rgba(8, 8, 12, 0.92)"
             : "transparent",
-          backdropFilter: scrolled ? "blur(18px)" : "none",
+          backdropFilter: scrolled ? "blur(20px)" : "none",
           borderBottom: scrolled
             ? "1px solid var(--border-color)"
             : "1px solid transparent",
@@ -106,7 +106,7 @@ export default function Navbar() {
             style={{
               fontFamily: "var(--font-poppins)",
               fontWeight: 800,
-              fontSize: "1.2rem",
+              fontSize: "1.3rem",
               letterSpacing: "-0.02em",
               color: "#fff",
               userSelect: "none",
@@ -129,12 +129,12 @@ export default function Navbar() {
             display: "flex",
             alignItems: "center",
             gap: "4px",
-            background: "rgba(18, 18, 24, 0.85)",
-            border: "1px solid rgba(255, 255, 255, 0.08)",
-            borderRadius: "12px",
-            padding: "4px 6px",
-            boxShadow: "0 10px 30px rgba(0, 0, 0, 0.5)",
-            backdropFilter: "blur(16px)"
+            background: "rgba(18, 18, 26, 0.92)",
+            border: "1px solid rgba(255, 255, 255, 0.16)",
+            borderRadius: "14px",
+            padding: "5px 8px",
+            boxShadow: "0 12px 36px rgba(0, 0, 0, 0.6), 0 0 1px rgba(255, 255, 255, 0.2)",
+            backdropFilter: "blur(20px)"
           }}
           className="navbar-desktop-tabs"
         >

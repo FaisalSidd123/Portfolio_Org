@@ -69,9 +69,11 @@ export default function ServicesPortals() {
     const panels = panelsRef.current;
     if (!container || !panels) return;
 
-    const totalScrollWidth = panels.scrollWidth - window.innerWidth;
+    const mm = gsap.matchMedia();
 
-    const ctx = gsap.context(() => {
+    mm.add("(min-width: 901px)", () => {
+      const totalScrollWidth = panels.scrollWidth - window.innerWidth;
+
       // Horizontal scroll-jacking timeline
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -116,9 +118,9 @@ export default function ServicesPortals() {
           ease: "power2.out"
         }, 0.05); // Start early in the scroll
       }
-    }, container);
+    });
 
-    return () => ctx.revert();
+    return () => mm.revert();
   }, []);
 
   const resetWebDev = () => {
@@ -129,6 +131,7 @@ export default function ServicesPortals() {
   return (
     <div 
       ref={containerRef} 
+      className="services-portals-wrapper"
       style={{
         position: "relative",
         overflow: "hidden",
@@ -140,6 +143,7 @@ export default function ServicesPortals() {
     >
       <div 
         ref={panelsRef}
+        className="services-panels-strip"
         style={{
           display: "flex",
           width: "400vw",
@@ -149,13 +153,13 @@ export default function ServicesPortals() {
       >
         {/* PANEL 1: MARKETING */}
         <section className="panel" style={panelStyle}>
-          <div style={panelGridStyle}>
+          <div className="panel-grid" style={panelGridStyle}>
             <div style={panelTextStyle}>
               <div style={badgeStyle("var(--accent-cyan)")}>
                 <BarChart2 size={14} />
                 <span>PORTAL 01 // MARKETING</span>
               </div>
-              <h2 style={portalHeadingStyle}>
+              <h2 className="portal-heading" style={portalHeadingStyle}>
                 PERFORMANCE <span style={{ color: "var(--accent-cyan)" }}>DRIVEN</span> CONVERSIONS.
               </h2>
               <p style={portalDescStyle}>
@@ -168,7 +172,7 @@ export default function ServicesPortals() {
               </ul>
             </div>
             
-            <div style={panelVisualContainerStyle}>
+            <div className="panel-visual-container" style={panelVisualContainerStyle}>
               {/* Marketing Visual: SVG line chart drawing itself */}
               <div style={cardMockStyle}>
                 <div style={cardHeaderStyle}>
@@ -222,13 +226,13 @@ export default function ServicesPortals() {
 
         {/* PANEL 2: GRAPHIC DESIGN */}
         <section className="panel" style={panelStyle}>
-          <div style={panelGridStyle}>
+          <div className="panel-grid" style={panelGridStyle}>
             <div style={panelTextStyle}>
               <div style={badgeStyle("var(--accent-pink)")}>
                 <Layers size={14} />
                 <span>PORTAL 02 // VISUAL IDENTITY</span>
               </div>
-              <h2 style={portalHeadingStyle}>
+              <h2 className="portal-heading" style={portalHeadingStyle}>
                 ASSET Stack & <span style={{ color: "var(--accent-pink)" }}>Curation</span>.
               </h2>
               <p style={portalDescStyle}>
@@ -241,7 +245,7 @@ export default function ServicesPortals() {
               </ul>
             </div>
 
-            <div style={panelVisualContainerStyle}>
+            <div className="panel-visual-container" style={panelVisualContainerStyle}>
               {/* Graphic Design Visual: Rearranging color swatches */}
               <div style={{ display: "flex", flexDirection: "column", gap: "1rem", width: "100%", maxWidth: "420px" }}>
                 <span style={{ fontSize: "0.85rem", color: "var(--text-secondary)", fontFamily: "var(--font-mono)" }}>
@@ -289,13 +293,13 @@ export default function ServicesPortals() {
 
         {/* PANEL 3: WEB DEVELOPMENT */}
         <section className="panel" style={panelStyle}>
-          <div style={panelGridStyle}>
+          <div className="panel-grid" style={panelGridStyle}>
             <div style={panelTextStyle}>
               <div style={badgeStyle("var(--accent-purple)")}>
                 <Code size={14} />
                 <span>PORTAL 03 // WEB ENGINEERING</span>
               </div>
-              <h2 style={portalHeadingStyle}>
+              <h2 className="portal-heading" style={portalHeadingStyle}>
                 CLEAN CODE. <span style={{ color: "var(--accent-purple)" }}>ZERO</span> FRICTION.
               </h2>
               <p style={portalDescStyle}>
@@ -313,7 +317,7 @@ export default function ServicesPortals() {
               )}
             </div>
 
-            <div style={panelVisualContainerStyle}>
+            <div className="panel-visual-container" style={panelVisualContainerStyle}>
               {/* Web Dev Visual: Browser Typing code that morphs into a website preview */}
               <div style={cardMockStyle}>
                 <div style={cardHeaderStyle}>
@@ -505,6 +509,47 @@ export default function ServicesPortals() {
         }
         @keyframes blink-anim {
           to { opacity: 0; }
+        }
+        @media (max-width: 900px) {
+          .services-portals-wrapper {
+            height: auto !important;
+            overflow: visible !important;
+          }
+          .services-panels-strip {
+            flex-direction: column !important;
+            width: 100% !important;
+            height: auto !important;
+            transform: none !important;
+          }
+          .panel {
+            width: 100% !important;
+            height: auto !important;
+            min-height: auto !important;
+            padding: 3.5rem 1.5rem !important;
+            border-right: none !important;
+            border-bottom: 1px solid var(--border-color) !important;
+            box-sizing: border-box !important;
+          }
+          .panel-grid {
+            grid-template-columns: 1fr !important;
+            gap: 2rem !important;
+            width: 100% !important;
+          }
+          .portal-heading {
+            font-size: 2.2rem !important;
+            margin: 0.8rem 0 !important;
+          }
+          .panel-visual-container {
+            display: flex !important;
+            width: 100% !important;
+            justify-content: center !important;
+            margin-top: 1rem !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .portal-heading {
+            font-size: 1.8rem !important;
+          }
         }
       `}</style>
     </div>
