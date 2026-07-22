@@ -227,34 +227,7 @@ const projectsData = [
     scope: "Lenis Smooth Motion & Tailwind Layouts",
     metrics: "> property_views: +310% // scroll_smoothness: 60fps"
   },
-  {
-    id: 8,
-    title: "F&W Glitch",
-    subtitle: "IT Services Website",
-    image: "/OptiManage.PNG",
-    description: "A modern IT brand website for F&W Glitch that showcases technology services, expertise, and business solutions with a clean and responsive user interface.",
-    detailedDescription: [
-      "F&W Glitch is a digital agency showcase designed to capture lead generation and highlight modern development solutions.",
-      "The project employs customized brand styling, micro-animations, and dynamic scroll layouts to keep developers and corporate clients engaged."
-    ],
-    features: [
-      "Dynamic service portals showcasing IT expertise",
-      "Interactive CTA layouts with visual feedback",
-      "Fast loading, optimized graphics assets",
-      "Responsive design supporting all standard viewport resolutions"
-    ],
-    tags: ["React", "CSS", "JavaScript", "EmailJs"],
-    liveLink: "#",
-    githubUrl: "https://github.com",
-    category: "WEB",
-    color: "#10b981",
-    gradient: "linear-gradient(135deg, #10b981 0%, #7cff67 100%)",
-    sliceOffsets: [7, -4, 6, -7, 5],
-    client: "F&W Gllitch Ltd",
-    year: "2026",
-    scope: "Aesthetic Design & Responsive React Core",
-    metrics: "> system_leads: +210% // lighthouse_perf: 100/100"
-  },
+
   {
     id: 9,
     title: "Simon Game",
