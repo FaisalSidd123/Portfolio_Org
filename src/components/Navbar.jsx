@@ -129,12 +129,12 @@ export default function Navbar() {
             display: "flex",
             alignItems: "center",
             gap: "4px",
-            background: "rgba(255,255,255,0.04)",
-            border: "1px solid var(--border-color)",
-            borderRadius: "14px",
-            padding: "5px 8px",
-            boxShadow: "0 8px 32px rgba(0, 0, 0, 0.4)",
-            backdropFilter: "blur(12px)"
+            background: "rgba(18, 18, 24, 0.85)",
+            border: "1px solid rgba(255, 255, 255, 0.08)",
+            borderRadius: "12px",
+            padding: "4px 6px",
+            boxShadow: "0 10px 30px rgba(0, 0, 0, 0.5)",
+            backdropFilter: "blur(16px)"
           }}
           className="navbar-desktop-tabs"
         >
@@ -215,8 +215,8 @@ export default function Navbar() {
                       letterSpacing: "0.02em",
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.background = "rgba(0,243,255,0.08)";
-                      e.currentTarget.style.color = "var(--accent-cyan)";
+                      e.currentTarget.style.background = "rgba(255, 255, 255, 0.06)";
+                      e.currentTarget.style.color = "#ffffff";
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.background = "transparent";
@@ -235,7 +235,7 @@ export default function Navbar() {
                         color: "var(--accent-cyan)"
                       }}
                     >
-                      <Icon size={18} strokeWidth={2.2} />
+                      <Icon size={18} strokeWidth={2} />
                     </div>
                     <span>{tab.title}</span>
                   </button>
@@ -253,16 +253,15 @@ export default function Navbar() {
                   alignItems: "center",
                   justifyContent: "center",
                   marginTop: "1rem",
-                  padding: "0.85rem 1.5rem",
+                  padding: "0.8rem 1.5rem",
                   background: "var(--accent-cyan)",
                   color: "#000",
                   fontFamily: "var(--font-poppins)",
-                  fontSize: "0.9rem",
-                  fontWeight: 700,
+                  fontSize: "0.88rem",
+                  fontWeight: 600,
                   borderRadius: "8px",
                   textDecoration: "none",
-                  letterSpacing: "0.04em",
-                  boxShadow: "0 0 16px rgba(0, 243, 255, 0.4)"
+                  letterSpacing: "0.03em"
                 }}
               >
                 GET IN TOUCH
@@ -279,24 +278,23 @@ export default function Navbar() {
         .navbar-cta {
           display: inline-flex;
           align-items: center;
-          padding: 0.5rem 1.25rem;
+          padding: 0.45rem 1.1rem;
           background: transparent;
-          border: 1px solid var(--accent-cyan);
+          border: 1px solid rgba(0, 243, 255, 0.4);
           color: var(--accent-cyan);
           font-family: var(--font-poppins);
-          font-size: 0.82rem;
+          font-size: 0.8rem;
           font-weight: 600;
-          letter-spacing: 0.04em;
+          letter-spacing: 0.03em;
           border-radius: 8px;
           text-decoration: none;
           cursor: pointer;
-          transition: all 0.25s ease;
+          transition: all 0.2s ease;
           white-space: nowrap;
         }
         .navbar-cta:hover {
           background: var(--accent-cyan);
           color: #000;
-          box-shadow: 0 0 16px rgba(0, 243, 255, 0.4);
         }
 
         /* Brand ambient glitch on hover */

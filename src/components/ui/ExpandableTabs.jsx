@@ -2,39 +2,19 @@ import * as React from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useOnClickOutside } from "usehooks-ts";
 
-// Lightweight utility to join class names (replaces shadcn's `cn`)
 function cn(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const buttonVariants = {
-  initial: {
-    gap: 0,
-    paddingLeft: ".4rem",
-    paddingRight: ".4rem",
-  },
-  animate: (isSelected) => ({
-    gap: isSelected ? ".5rem" : 0,
-    paddingLeft: isSelected ? "0.6rem" : ".4rem",
-    paddingRight: isSelected ? "0.8rem" : ".4rem",
-  }),
-};
-
-const spanVariants = {
-  initial: { width: 0, opacity: 0 },
-  animate: { width: "auto", opacity: 1 },
-  exit: { width: 0, opacity: 0 },
-};
-
-const transition = { delay: 0.05, type: "spring", bounce: 0, duration: 0.5 };
+const transition = { duration: 0.2, ease: [0.25, 1, 0.5, 1] };
 
 const Separator = () => (
   <div
     aria-hidden="true"
     style={{
-      width: "1.2px",
-      height: "22px",
-      background: "var(--border-color)",
+      width: "1px",
+      height: "18px",
+      background: "rgba(255, 255, 255, 0.12)",
       margin: "0 4px",
       flexShrink: 0,
     }}
@@ -66,9 +46,8 @@ export function ExpandableTabs({
       className={cn("expandable-tabs", className)}
       style={{
         display: "flex",
-        flexWrap: "wrap",
         alignItems: "center",
-        gap: "6px",
+        gap: "3px",
       }}
     >
       {tabs.map((tab, index) => {
@@ -82,77 +61,65 @@ export function ExpandableTabs({
         return (
           <motion.button
             key={tab.title}
-            variants={buttonVariants}
-            initial={false}
-            animate="animate"
-            custom={isActive}
             onClick={() => handleSelect(index)}
+            layout
             transition={transition}
             style={{
               display: "flex",
               alignItems: "center",
-              borderRadius: "10px",
-              paddingTop: "0.35rem",
-              paddingBottom: "0.35rem",
-              fontSize: "0.88rem",
+              gap: isActive ? "6px" : "0px",
+              borderRadius: "8px",
+              padding: isActive ? "6px 12px 6px 8px" : "6px 8px",
+              fontSize: "0.84rem",
               fontFamily: "var(--font-poppins)",
-              fontWeight: 600,
+              fontWeight: 500,
               cursor: "pointer",
               background: isActive
-                ? "rgba(0, 243, 255, 0.12)"
+                ? "rgba(255, 255, 255, 0.08)"
                 : "transparent",
               border: isActive
-                ? "1px solid rgba(0, 243, 255, 0.35)"
+                ? "1px solid rgba(255, 255, 255, 0.15)"
                 : "1px solid transparent",
               color: isActive
-                ? (activeColor || "var(--accent-cyan)")
+                ? (activeColor || "#ffffff")
                 : "var(--text-secondary)",
-              transition: "all 0.25s cubic-bezier(0.4, 0, 0.2, 1)",
               whiteSpace: "nowrap",
-              letterSpacing: "0.02em",
               outline: "none",
-              boxShadow: isActive
-                ? "0 0 12px rgba(0, 243, 255, 0.25)"
-                : "none"
+              userSelect: "none"
             }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{
+              background: isActive
+                ? "rgba(255, 255, 255, 0.12)"
+                : "rgba(255, 255, 255, 0.05)",
+              color: "#ffffff"
+            }}
+            whileTap={{ scale: 0.98 }}
           >
             <div
               style={{
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                width: "28px",
-                height: "28px",
-                borderRadius: "7px",
-                background: isActive
-                  ? "rgba(0, 243, 255, 0.22)"
-                  : "rgba(255, 255, 255, 0.05)",
-                color: isActive ? "var(--accent-cyan)" : "#cbd5e1",
-                transition: "all 0.25s ease",
-                boxShadow: isActive
-                  ? "0 0 8px rgba(0, 243, 255, 0.4)"
-                  : "none"
+                color: isActive ? (activeColor || "var(--accent-cyan)") : "#94a3b8",
+                transition: "color 0.2s ease"
               }}
             >
-              <Icon size={16} strokeWidth={2.2} />
+              <Icon size={16} strokeWidth={2} />
             </div>
-            <AnimatePresence initial={false}>
+            <AnimatePresence initial={false} mode="wait">
               {isActive && (
                 <motion.span
-                  variants={spanVariants}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
+                  initial={{ opacity: 0, width: 0 }}
+                  animate={{ opacity: 1, width: "auto" }}
+                  exit={{ opacity: 0, width: 0 }}
                   transition={transition}
                   style={{
                     overflow: "hidden",
                     display: "inline-block",
                     fontFamily: "var(--font-poppins)",
                     fontWeight: 600,
-                    fontSize: "0.85rem",
-                    marginLeft: "4px"
+                    fontSize: "0.82rem",
+                    lineHeight: 1
                   }}
                 >
                   {tab.title}
