@@ -104,10 +104,10 @@ export default function Navbar() {
           {/* Glitching brand name */}
           <span
             style={{
-              fontFamily: "var(--font-mono)",
-              fontWeight: 900,
-              fontSize: "1.15rem",
-              letterSpacing: "-0.03em",
+              fontFamily: "var(--font-poppins)",
+              fontWeight: 800,
+              fontSize: "1.2rem",
+              letterSpacing: "-0.02em",
               color: "#fff",
               userSelect: "none",
             }}
@@ -131,8 +131,10 @@ export default function Navbar() {
             gap: "4px",
             background: "rgba(255,255,255,0.04)",
             border: "1px solid var(--border-color)",
-            borderRadius: "12px",
-            padding: "6px 10px",
+            borderRadius: "14px",
+            padding: "5px 8px",
+            boxShadow: "0 8px 32px rgba(0, 0, 0, 0.4)",
+            backdropFilter: "blur(12px)"
           }}
           className="navbar-desktop-tabs"
         >
@@ -188,7 +190,7 @@ export default function Navbar() {
               padding: "1.5rem 2rem 2rem",
             }}
           >
-            <nav style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
+            <nav style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
               {NAV_TABS.filter((t) => t.type !== "separator").map((tab) => {
                 const Icon = tab.icon;
                 return (
@@ -198,22 +200,22 @@ export default function Navbar() {
                     style={{
                       display: "flex",
                       alignItems: "center",
-                      gap: "0.75rem",
-                      padding: "0.85rem 1rem",
+                      gap: "0.85rem",
+                      padding: "0.75rem 1rem",
                       background: "transparent",
                       border: "none",
-                      borderRadius: "8px",
+                      borderRadius: "10px",
                       color: "var(--text-secondary)",
-                      fontFamily: "var(--font-mono)",
-                      fontSize: "0.9rem",
+                      fontFamily: "var(--font-poppins)",
+                      fontSize: "0.95rem",
                       fontWeight: 600,
                       cursor: "pointer",
                       textAlign: "left",
                       transition: "background 0.2s ease, color 0.2s ease",
-                      letterSpacing: "0.06em",
+                      letterSpacing: "0.02em",
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.background = "rgba(255,255,255,0.06)";
+                      e.currentTarget.style.background = "rgba(0,243,255,0.08)";
                       e.currentTarget.style.color = "var(--accent-cyan)";
                     }}
                     onMouseLeave={(e) => {
@@ -221,8 +223,21 @@ export default function Navbar() {
                       e.currentTarget.style.color = "var(--text-secondary)";
                     }}
                   >
-                    <Icon size={18} />
-                    <span>{tab.title.toUpperCase()}</span>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        width: "32px",
+                        height: "32px",
+                        borderRadius: "8px",
+                        background: "rgba(255,255,255,0.05)",
+                        color: "var(--accent-cyan)"
+                      }}
+                    >
+                      <Icon size={18} strokeWidth={2.2} />
+                    </div>
+                    <span>{tab.title}</span>
                   </button>
                 );
               })}
@@ -241,12 +256,13 @@ export default function Navbar() {
                   padding: "0.85rem 1.5rem",
                   background: "var(--accent-cyan)",
                   color: "#000",
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "0.85rem",
+                  fontFamily: "var(--font-poppins)",
+                  fontSize: "0.9rem",
                   fontWeight: 700,
                   borderRadius: "8px",
                   textDecoration: "none",
-                  letterSpacing: "0.08em",
+                  letterSpacing: "0.04em",
+                  boxShadow: "0 0 16px rgba(0, 243, 255, 0.4)"
                 }}
               >
                 GET IN TOUCH
@@ -263,23 +279,24 @@ export default function Navbar() {
         .navbar-cta {
           display: inline-flex;
           align-items: center;
-          padding: 0.45rem 1.1rem;
+          padding: 0.5rem 1.25rem;
           background: transparent;
           border: 1px solid var(--accent-cyan);
           color: var(--accent-cyan);
-          font-family: var(--font-mono);
-          font-size: 0.78rem;
-          font-weight: 700;
-          letter-spacing: 0.1em;
-          border-radius: 6px;
+          font-family: var(--font-poppins);
+          font-size: 0.82rem;
+          font-weight: 600;
+          letter-spacing: 0.04em;
+          border-radius: 8px;
           text-decoration: none;
           cursor: pointer;
-          transition: background 0.25s ease, color 0.25s ease;
+          transition: all 0.25s ease;
           white-space: nowrap;
         }
         .navbar-cta:hover {
           background: var(--accent-cyan);
           color: #000;
+          box-shadow: 0 0 16px rgba(0, 243, 255, 0.4);
         }
 
         /* Brand ambient glitch on hover */

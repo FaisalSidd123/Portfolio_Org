@@ -515,7 +515,7 @@ function ProjectCardFront({ project }) {
     >
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", color: project.color, fontWeight: "bold" }}>
-          // {project.category}
+          // FEATURED_PROJECT
         </span>
         <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.7rem", color: "var(--text-secondary)" }}>
           FILE//{String(project.id).padStart(3, "0")}
@@ -670,7 +670,6 @@ function ProjectCardBack({ project, onOpenModal }) {
 // Main
 // ============================================================
 export default function WorkMasonry() {
-  const [activeFilter, setActiveFilter] = useState("ALL");
   const [selectedId, setSelectedId] = useState(null);
   const [decryptId, setDecryptId] = useState(null); // playing the open sequence
   const [encryptId, setEncryptId] = useState(null); // playing the close sequence
@@ -726,7 +725,7 @@ export default function WorkMasonry() {
       style={{ background: "transparent", borderBottom: "1px solid var(--border-color)", position: "relative", overflow: "hidden" }}
     >
       <div style={{ maxWidth: "1200px", margin: "0 auto", position: "relative", zIndex: 2 }}>
-        <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+        <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
           <span style={{ fontFamily: "var(--font-mono)", color: "var(--accent-pink)", fontSize: "0.85rem", letterSpacing: "0.2em" }}>
             {"// PORTFOLIO ARCHIVE"}
           </span>
@@ -746,44 +745,6 @@ export default function WorkMasonry() {
 
         <div
           style={{
-            display: "flex",
-            justifyContent: "center",
-            background: "rgba(0,0,0,0.4)",
-            border: "1px solid var(--border-color)",
-            padding: "0.4rem",
-            borderRadius: "8px",
-            width: "max-content",
-            margin: "0 auto 3.5rem",
-            gap: "0.5rem"
-          }}
-        >
-          {["ALL", "WEB", "APP", "DESIGN"].map((cat) => {
-            const isActive = activeFilter === cat;
-            return (
-              <button
-                key={cat}
-                onClick={() => setActiveFilter(cat)}
-                style={{
-                  background: isActive ? "var(--accent-pink)" : "transparent",
-                  color: isActive ? "#000" : "var(--text-secondary)",
-                  border: "none",
-                  padding: "0.5rem 1.5rem",
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "0.8rem",
-                  fontWeight: "bold",
-                  cursor: "pointer",
-                  borderRadius: "6px",
-                  transition: "all 0.25s ease-out"
-                }}
-              >
-                [{cat}]
-              </button>
-            );
-          })}
-        </div>
-
-        <div
-          style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fill, minmax(330px, 1fr))",
             gap: "2.5rem",
@@ -792,26 +753,24 @@ export default function WorkMasonry() {
           }}
         >
           <AnimatePresence mode="popLayout">
-            {projectsData
-              .filter((p) => activeFilter === "ALL" || p.category === activeFilter)
-              .map((project) => (
-                <motion.div
-                  key={project.id}
-                  layout
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.25 }}
-                  style={{ width: "100%", display: "flex", justifyContent: "center" }}
-                >
-                  <FlippingCard
-                    width="100%"
-                    height={380}
-                    frontContent={<ProjectCardFront project={project} />}
-                    backContent={<ProjectCardBack project={project} onOpenModal={handleSelect} />}
-                  />
-                </motion.div>
-              ))}
+            {projectsData.map((project) => (
+              <motion.div
+                key={project.id}
+                layout
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.25 }}
+                style={{ width: "100%", display: "flex", justifyContent: "center" }}
+              >
+                <FlippingCard
+                  width="100%"
+                  height={380}
+                  frontContent={<ProjectCardFront project={project} />}
+                  backContent={<ProjectCardBack project={project} onOpenModal={handleSelect} />}
+                />
+              </motion.div>
+            ))}
           </AnimatePresence>
         </div>
       </div>
@@ -899,7 +858,7 @@ export default function WorkMasonry() {
               <div style={{ display: "flex", flexDirection: "column", gap: "2.5rem" }}>
                 <div style={{ textAlign: "left" }}>
                   <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.85rem", color: activeProject.color, letterSpacing: "0.1em" }}>
-                    {"// COMPLETED_MODULE_" + activeProject.category}
+                    {"// CASE_STUDY_DETAILS"}
                   </span>
                   <h3 style={{ fontSize: "2rem", fontWeight: "950", color: "#fff", marginTop: "0.5rem" }}>
                     <GlitchText text={activeProject.title} active={modalRevealed} duration={550} />

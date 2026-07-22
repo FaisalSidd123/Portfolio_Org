@@ -11,6 +11,7 @@
   
   --font-sans: 'Outfit', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
+  --font-poppins: 'Poppins', system-ui, -apple-system, sans-serif;
 
   background-color: var(--bg-dark);
   color: var(--text-primary);
