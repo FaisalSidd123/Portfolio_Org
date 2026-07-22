@@ -201,19 +201,19 @@ const projectsData = [
   {
     id: 7,
     title: "UrbanEdge",
-    subtitle: "Editorial Real Estate Portal",
+    subtitle: "Editorial Real Estate Showcase",
     image: "/Urban Edge.png",
-    description: "A premium real estate agency platform highlighting elite property displays, search filters, interactive bookings, and buttery-smooth Lenis motion grids.",
+    description: "A premium real estate showcase website highlighting luxury property galleries, agency services, team profiles, and smooth motion layouts.",
     detailedDescription: [
       "UrbanEdge is an editorial real estate web portal designed to showcase high-end architecture and luxury properties with high-contrast visual design and smooth motion.",
-      "The platform features an advanced search interface with customized filters for price, location, and property type, along with an interactive booking system for scheduling property viewings."
+      "The platform features core agency showcase sections including curated property image galleries, company services, dedicated team profiles, client testimonials, and interactive contact channels."
     ],
     features: [
       "Elite property listings showcase with high-res galleries",
-      "Advanced filtering system for property search parameters",
-      "Interactive viewing scheduler & tour booking flow",
-      "Smooth scroll integration with Lenis scrolling",
-      "GSAP ScrollTrigger layouts with reveal animations"
+      "Corporate services & architectural offerings overview",
+      "Dedicated agency team & leadership profiles",
+      "Interactive contact inquiry forms & company info",
+      "Smooth scroll integration with Lenis scrolling & GSAP animations"
     ],
     tags: ["React", "Tailwind CSS", "Lenis", "GSAP", "Framer Motion"],
     liveLink: "#",
@@ -226,6 +226,39 @@ const projectsData = [
     year: "2026",
     scope: "Lenis Smooth Motion & Tailwind Layouts",
     metrics: "> property_views: +310% // scroll_smoothness: 60fps"
+  },
+  {
+    id: 8,
+    title: "AutoVault – Car Inventory System",
+    subtitle: "Dealership Operations & Public Portal",
+    image: "/CMS.png",
+    description: "A comprehensive car inventory management system featuring a public vehicle showroom and customer portal alongside a full-featured Dealership Operations Dashboard.",
+    detailedDescription: [
+      "AutoVault combines a customer-facing public showcase website with a powerful Dealership Operations Admin Dashboard. The public site enables clients to browse available vehicle stock, inspect detailed specs, read customer reviews, and submit inquiries.",
+      "The admin portal provides dealership administrators with comprehensive operational tools: adding and managing car inventory, tracking purchases and reservations, handling payment allocations & escrow settlements, managing client records, assigning dedicated sales agents to clients, generating invoices for reservations, and storing car-related legal & registration documentation.",
+      "Features a real-time Dealership Operations Dashboard with key business metrics including total sales value, dealer net profit, active holds, agent performance leaderboards, and a unified platform activity feed."
+    ],
+    features: [
+      "Public Showroom: Browse vehicle inventory, view specs & customer reviews, submit inquiries",
+      "Inventory Management: Add, update, and manage vehicle stock listings with photos & specs",
+      "Purchases & Reservations: Track vehicle holds, purchase requests, and booking statuses",
+      "Payment Allocations: Handle, record, and store payment allocations & escrow settlements",
+      "Client & Agent Management: Manage client profiles and assign sales agents to clients",
+      "Invoice Generator: Automated invoice generation for vehicle holds & completed reservations",
+      "Document Management: Upload, store, and manage car-related documents & titles",
+      "Operations Dashboard: Net profit figures, active holds counter, agent leaderboards, and activity feeds"
+    ],
+    tags: ["React", "Node.js", "Express", "PostgreSQL", "Dashboard", "Admin Portal", "Financial Tracking"],
+    liveLink: "#",
+    githubUrl: "https://github.com",
+    category: "APP",
+    color: "#38bdf8",
+    gradient: "linear-gradient(135deg, #38bdf8 0%, #6366f1 100%)",
+    sliceOffsets: [7, -4, 6, -7, 5],
+    client: "Automotive Dealership Network",
+    year: "2026",
+    scope: "Full-Stack Dealership CMS & Showroom",
+    metrics: "> inventory_managed: 500+ // deal_throughput: +185%"
   },
 
   {
