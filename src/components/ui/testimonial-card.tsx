@@ -16,7 +16,12 @@ export interface Stat {
 
 export interface Testimonial {
   name: string;
-  title: string;
+  title: string;++
+
+
+
+
+  
   quote?: string;
   avatarSrc: string;
   avatarFallback?: string;

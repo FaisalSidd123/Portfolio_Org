@@ -22,7 +22,7 @@ const NAV_TABS = [
   { type: "separator" },
   { title: "Reviews",    icon: MessageSquare, href: "#testimonials" },
   { title: "Pricing",    icon: DollarSign,    href: "#pricing" },
-  { title: "Contact",    icon: Mail,          href: "#cta" },
+  { title: "Contact",    icon: Mail,          href: "#contact" },
 ];
 
 export default function Navbar() {
@@ -148,10 +148,10 @@ export default function Navbar() {
         {/* ── Right: CTA + Mobile Toggle ── */}
         <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
           <a
-            href="#cta"
+            href="#contact"
             onClick={(e) => {
               e.preventDefault();
-              document.querySelector("#cta")?.scrollIntoView({ behavior: "smooth" });
+              document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
             }}
             className="navbar-cta"
           >
@@ -180,7 +180,7 @@ export default function Navbar() {
             transition={{ duration: 0.28, ease: "easeOut" }}
             style={{
               position: "fixed",
-              top: "64px",
+              top: "72px",
               left: 0,
               right: 0,
               zIndex: 4999,
@@ -243,10 +243,10 @@ export default function Navbar() {
               })}
 
               <a
-                href="#cta"
+                href="#contact"
                 onClick={(e) => {
                   e.preventDefault();
-                  handleMobileNav("#cta");
+                  handleMobileNav("#contact");
                 }}
                 style={{
                   display: "flex",

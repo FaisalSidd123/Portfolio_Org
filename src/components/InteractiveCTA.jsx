@@ -245,6 +245,10 @@ export default function InteractiveCTA() {
           >
             <button
               ref={buttonRef}
+              onClick={(e) => {
+                e.preventDefault();
+                document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
+              }}
               style={{
                 transform: `translate3d(${btnTranslate.x}px, ${btnTranslate.y}px, 0)`,
                 transition: btnTranslate.x === 0 ? "transform 0.5s cubic-bezier(0.19, 1, 0.22, 1)" : "none",

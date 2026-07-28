@@ -11,10 +11,8 @@ import ServicesPortals from "./components/ServicesPortals";
 import MethodSection from "./components/MethodSection";
 import WorkMasonry from "./components/WorkMasonry";
 import TechPhysics from "./components/TechPhysics";
-import TerminalStats from "./components/TerminalStats";
-import GlitchTestimonials from "./components/GlitchTestimonials";
-import PricingSpecs from "./components/PricingSpecs";
 import InteractiveCTA from "./components/InteractiveCTA";
+import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -61,9 +59,20 @@ function App() {
         start: "top 75%",
         end: "bottom 25%",
         onEnter: () => setBgSection("cta"),
-        onLeave: () => setBgSection("footer"),
+        onLeave: () => setBgSection("cta"),
         onEnterBack: () => setBgSection("cta"),
         onLeaveBack: () => setBgSection("mid")
+      });
+
+      // Contact region
+      ScrollTrigger.create({
+        trigger: "#contact",
+        start: "top 75%",
+        end: "bottom 25%",
+        onEnter: () => setBgSection("cta"),
+        onLeave: () => setBgSection("footer"),
+        onEnterBack: () => setBgSection("cta"),
+        onLeaveBack: () => setBgSection("cta")
       });
 
       // Footer region
@@ -115,24 +124,29 @@ function App() {
         <TechPhysics />
       </div>
 
-      {/* Section 6: Diagnostic stats printer */}
+      {/* Section 6: Diagnostic stats printer
       <div id="stats">
         <TerminalStats />
-      </div>
+      </div> */}
 
-      {/* Section 7: Testimonials glitch cut swap */}
+      {/* Section 7: Testimonials glitch cut swap
       <div id="testimonials">
         <GlitchTestimonials />
-      </div>
+      </div> */}
 
-      {/* Section 8: Comparison Pricing Sheet */}
+      {/* Section 8: Comparison Pricing Sheet
       <div id="pricing">
         <PricingSpecs />
-      </div>
+      </div> */}
 
       {/* Section 9: Splitted grid warping CTA */}
       <div id="cta">
         <InteractiveCTA />
+      </div>
+
+      {/* Section 9.5: Secure glitch Contact Form */}
+      <div id="contact">
+        <Contact />
       </div>
 
       {/* Section 10: Digital scanline Footer */}
