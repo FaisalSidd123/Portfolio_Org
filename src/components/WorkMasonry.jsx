@@ -853,7 +853,7 @@ export default function WorkMasonry() {
                   cursor: "pointer",
                   transition: "all 0.3s ease"
                 }}
-                className="glitch-hover"
+                className="glitch-hover modal-close-btn"
               >
                 [ESC] BACK_TO_ARCHIVE
               </button>
@@ -1026,7 +1026,15 @@ export default function WorkMasonry() {
         @media (max-width: 600px) {
           .modal-content-grid { grid-template-columns: 1fr !important; }
           .modal-overlay-container { padding: 0.75rem !important; }
-          .modal-card-dialog { padding: 2.2rem 1.2rem !important; maxHeight: 90vh !important; }
+          .modal-card-dialog { padding: 3rem 1.2rem 2.2rem !important; maxHeight: 90vh !important; }
+          .modal-close-btn {
+            position: relative !important;
+            top: 0 !important;
+            right: 0 !important;
+            margin-bottom: 1rem !important;
+            display: inline-block !important;
+            width: max-content !important;
+          }
         }
         @media (prefers-reduced-motion: reduce) {
           .glitch-shake, .cursor-blink { animation: none !important; }
