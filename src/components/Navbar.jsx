@@ -15,18 +15,18 @@ import { ExpandableTabs } from "./ui/ExpandableTabs";
 
 // Navigation items — maps to section IDs in App.jsx
 const NAV_TABS = [
-  { title: "Home",       icon: Home,          href: "#hero" },
-  { title: "Services",   icon: Layers,        href: "#portals" },
-  { title: "Method",     icon: Cpu,           href: "#method" },
-  { title: "Work",       icon: Briefcase,     href: "#work" },
+  { title: "Home", icon: Home, href: "#hero" },
+  { title: "Services", icon: Layers, href: "#portals" },
+  { title: "Method", icon: Cpu, href: "#method" },
+  { title: "Work", icon: Briefcase, href: "#work" },
   { type: "separator" },
-  { title: "Reviews",    icon: MessageSquare, href: "#testimonials" },
-  { title: "Pricing",    icon: DollarSign,    href: "#pricing" },
-  { title: "Contact",    icon: Mail,          href: "#contact" },
+  { title: "Reviews", icon: MessageSquare, href: "#testimonials" },
+  // { title: "Pricing",    icon: DollarSign,    href: "#pricing" },
+  { title: "Contact", icon: Mail, href: "#contact" },
 ];
 
 export default function Navbar() {
-  const [scrolled, setScrolled]     = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   // Detect scroll depth to trigger background fill
