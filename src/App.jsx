@@ -130,10 +130,10 @@ function App() {
         <TerminalStats />
       </div> */}
 
-      {/* Section 7: Testimonials glitch cut swap */}
+      {/* Section 7: Testimonials glitch cut swap
       <div id="testimonials">
         <GlitchTestimonials />
-      </div>
+      </div> */}
 
       {/* Section 8: Comparison Pricing Sheet
       <div id="pricing">
@@ -141,9 +141,9 @@ function App() {
       </div> */}
 
       {/* Section 9: Splitted grid warping CTA */}
-      <div id="cta">
+      {/* <div id="cta">
         <InteractiveCTA />
-      </div>
+      </div> */}
 
       {/* Section 9.5: Secure glitch Contact Form */}
       <div id="contact">
