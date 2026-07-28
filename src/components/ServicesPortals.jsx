@@ -71,7 +71,7 @@ export default function ServicesPortals() {
 
     const mm = gsap.matchMedia();
 
-    mm.add("(min-width: 901px)", () => {
+    mm.add("(min-width: 1025px)", () => {
       const totalScrollWidth = panels.scrollWidth - window.innerWidth;
 
       // Horizontal scroll-jacking timeline
@@ -372,7 +372,7 @@ export default function ServicesPortals() {
 
         {/* PANEL 4: APP DEVELOPMENT */}
         <section className="panel" style={panelStyle}>
-          <div style={panelGridStyle}>
+          <div className="panel-grid" style={panelGridStyle}>
             <div style={panelTextStyle}>
               <div style={badgeStyle("var(--accent-cyan)")}>
                 <Smartphone size={14} />
@@ -391,7 +391,7 @@ export default function ServicesPortals() {
               </ul>
             </div>
 
-            <div style={panelVisualContainerStyle}>
+            <div className="panel-visual-container" style={panelVisualContainerStyle}>
               {/* App Dev Visual: Smartphone mockup scrolling screen sync */}
               <div style={phoneMockStyle}>
                 {/* Notch */}
@@ -510,7 +510,7 @@ export default function ServicesPortals() {
         @keyframes blink-anim {
           to { opacity: 0; }
         }
-        @media (max-width: 900px) {
+        @media (max-width: 1024px) {
           .services-portals-wrapper {
             height: auto !important;
             overflow: visible !important;

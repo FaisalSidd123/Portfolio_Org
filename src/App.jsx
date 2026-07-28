@@ -13,6 +13,7 @@ import WorkMasonry from "./components/WorkMasonry";
 import TechPhysics from "./components/TechPhysics";
 import InteractiveCTA from "./components/InteractiveCTA";
 import Contact from "./components/Contact";
+import GlitchTestimonials from "./components/GlitchTestimonials";
 import Footer from "./components/Footer";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -129,10 +130,10 @@ function App() {
         <TerminalStats />
       </div> */}
 
-      {/* Section 7: Testimonials glitch cut swap
+      {/* Section 7: Testimonials glitch cut swap */}
       <div id="testimonials">
         <GlitchTestimonials />
-      </div> */}
+      </div>
 
       {/* Section 8: Comparison Pricing Sheet
       <div id="pricing">

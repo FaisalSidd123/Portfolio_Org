@@ -27,14 +27,15 @@ export default function TechPhysics() {
     const containerWidth = rect.width || 800;
     const containerHeight = 350;
 
+    const initialCols = containerWidth < 500 ? 2 : containerWidth < 800 ? 3 : 4;
+    const initialRows = Math.ceil(tools.length / initialCols);
+
     // Initialize physics nodes
     const nodes = tools.map((tool, idx) => {
-      // Space them out evenly in a grid/strip initially
-      const cols = 4;
-      const row = Math.floor(idx / cols);
-      const col = idx % cols;
-      const baseX = (col + 0.5) * (containerWidth / cols);
-      const baseY = (row + 0.5) * (containerHeight / 3);
+      const col = idx % initialCols;
+      const row = Math.floor(idx / initialCols);
+      const baseX = (col + 0.5) * (containerWidth / initialCols);
+      const baseY = (row + 0.5) * (containerHeight / initialRows);
 
       return {
         x: baseX,
@@ -43,8 +44,6 @@ export default function TechPhysics() {
         baseY: baseY,
         vx: 0,
         vy: 0,
-        width: 120,
-        height: 45,
         color: tool.color,
         name: tool.name
       };
@@ -74,9 +73,19 @@ export default function TechPhysics() {
       const springTension = 0.025;
       const friction = 0.88;
 
+      const currentWidth = container.getBoundingClientRect().width || 800;
+      const currentCols = currentWidth < 500 ? 2 : currentWidth < 800 ? 3 : 4;
+      const currentRows = Math.ceil(tools.length / currentCols);
+
       nodes.forEach((node, idx) => {
         const domEl = elementsRef.current[idx];
         if (!domEl) return;
+
+        const col = idx % currentCols;
+        const row = Math.floor(idx / currentCols);
+        
+        node.baseX = (col + 0.5) * (currentWidth / currentCols);
+        node.baseY = (row + 0.5) * (containerHeight / currentRows);
 
         // 1. Spring force back to base position
         const dxBase = node.baseX - node.x;
@@ -97,7 +106,7 @@ export default function TechPhysics() {
           node.vy += pushY;
         }
 
-        // 3. Gentle random drift (brownian-like motion)
+        // 3. Gentle random drift
         node.vx += (Math.random() - 0.5) * 0.15;
         node.vy += (Math.random() - 0.5) * 0.15;
 
@@ -109,12 +118,12 @@ export default function TechPhysics() {
 
         // Bounds collision container-relative
         if (node.x < 60) node.x = 60;
-        if (node.x > containerWidth - 60) node.x = containerWidth - 60;
-        if (node.y < 30) node.y = 30;
-        if (node.y > containerHeight - 30) node.y = containerHeight - 30;
+        if (node.x > currentWidth - 60) node.x = currentWidth - 60;
+        if (node.y < 22.5) node.y = 22.5;
+        if (node.y > containerHeight - 22.5) node.y = containerHeight - 22.5;
 
-        // Apply translation directly to DOM style (bypassing React re-renders)
-        domEl.style.transform = `translate3d(${node.x - node.baseX}px, ${node.y - node.baseY}px, 0)`;
+        // Apply absolute translation directly to DOM style (bypassing React re-renders)
+        domEl.style.transform = `translate3d(${node.x - 60}px, ${node.y - 22.5}px, 0)`;
       });
 
       animationFrameId = requestAnimationFrame(updatePhysics);
@@ -177,19 +186,14 @@ export default function TechPhysics() {
           />
 
           {tools.map((tool, idx) => {
-            // Distribute items layout coordinates initially
-            const cols = 4;
-            const row = Math.floor(idx / cols);
-            const col = idx % cols;
-
             return (
               <div
                 key={idx}
                 ref={(el) => (elementsRef.current[idx] = el)}
                 style={{
                   position: "absolute",
-                  left: `calc(${(col + 0.5) * 25}% - 60px)`,
-                  top: `${(row + 0.5) * 33.33}%`,
+                  left: 0,
+                  top: 0,
                   width: "120px",
                   height: "45px",
                   display: "flex",

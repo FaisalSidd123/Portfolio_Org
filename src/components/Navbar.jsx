@@ -6,7 +6,6 @@ import {
   Cpu,
   Briefcase,
   MessageSquare,
-  DollarSign,
   Mail,
   Menu,
   X,

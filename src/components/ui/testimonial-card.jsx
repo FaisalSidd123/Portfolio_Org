@@ -29,6 +29,7 @@ const StickyTestimonialCard = ({ testimonial, index, total }) => {
 
   return (
     <motion.div
+      className="testimonial-card-sticky"
       style={{
         position: "sticky",
         top: `${100 + index * 26}px`,
@@ -223,6 +224,11 @@ export const ClientsSection = ({
           }
           .testimonials-title {
             font-size: 2.2rem !important;
+          }
+          .testimonial-card-sticky {
+            position: relative !important;
+            top: 0 !important;
+            margin-bottom: 2rem !important;
           }
         }
         @media (max-width: 480px) {
