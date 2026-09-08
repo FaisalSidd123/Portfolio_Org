@@ -85,7 +85,7 @@ export default function Navbar() {
           transition: "background 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease",
         }}
       >
-        {/* ── Left: Brand wordmark ── */}
+        {/* ── Left: Brand logo & wordmark ── */}
         <a
           href="#hero"
           onClick={(e) => {
@@ -96,26 +96,54 @@ export default function Navbar() {
             textDecoration: "none",
             display: "flex",
             alignItems: "center",
-            gap: "0.5rem",
+            gap: "0.75rem",
             flexShrink: 0,
           }}
         >
-          {/* Glitching brand name */}
+          {/* Brand Logo Image with circular crop and ambient glow */}
+          <div
+            style={{
+              position: "relative",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "40px",
+              height: "40px",
+              borderRadius: "50%",
+              overflow: "hidden",
+              border: "1px solid rgba(255, 255, 255, 0.2)",
+              boxShadow: "0 0 10px rgba(0, 243, 255, 0.3)",
+              background: "#000",
+            }}
+            className="navbar-brand-logo-container"
+          >
+            <img
+              src="/New logo 2.png"
+              alt="GLLITCH Logo"
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                borderRadius: "50%",
+                transition: "transform 0.3s ease, filter 0.3s ease",
+              }}
+              className="navbar-brand-logo"
+            />
+          </div>
+
+          {/* Glitching brand name: GLLITCH in white */}
           <span
             style={{
               fontFamily: "var(--font-poppins)",
               fontWeight: 800,
-              fontSize: "1.3rem",
-              letterSpacing: "-0.02em",
-              color: "#fff",
+              fontSize: "1.25rem",
+              letterSpacing: "0.04em",
+              color: "#ffffff",
               userSelect: "none",
             }}
             className="brand-glitch"
           >
-            F<span style={{ color: "var(--accent-cyan)" }}>&</span>W
-            <span style={{ color: "var(--accent-pink)", marginLeft: "4px" }}>
-              GLLITCH
-            </span>
+            GLLITCH
           </span>
         </a>
 
@@ -296,7 +324,12 @@ export default function Navbar() {
           color: #000;
         }
 
-        /* Brand ambient glitch on hover */
+        /* Brand ambient glitch & logo hover */
+        .navbar-brand-logo:hover {
+          transform: scale(1.08);
+          filter: drop-shadow(0 0 12px rgba(0, 243, 255, 0.7)) drop-shadow(-2px 0 0 rgba(255, 0, 127, 0.7));
+        }
+
         .brand-glitch {
           position: relative;
           display: inline-block;

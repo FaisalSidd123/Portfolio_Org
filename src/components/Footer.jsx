@@ -59,10 +59,38 @@ export default function Footer() {
         >
           {/* Brand block */}
           <div>
-            <span style={{ fontSize: "1.4rem", fontWeight: "900", color: "#fff", letterSpacing: "-0.02em" }}>
-              F&W <span style={{ color: "var(--accent-cyan)" }}>GLLITCH.</span>
-            </span>
-            <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", marginTop: "1rem", lineHeight: "1.6", maxWidth: "260px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.5rem" }}>
+              <div
+                style={{
+                  width: "36px",
+                  height: "36px",
+                  borderRadius: "50%",
+                  overflow: "hidden",
+                  border: "1px solid rgba(255, 255, 255, 0.2)",
+                  boxShadow: "0 0 10px rgba(0, 243, 255, 0.3)",
+                  background: "#000",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexShrink: 0,
+                }}
+              >
+                <img
+                  src="/New logo 2.png"
+                  alt="GLLITCH Logo"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    borderRadius: "50%",
+                  }}
+                />
+              </div>
+              <span style={{ fontSize: "1.4rem", fontWeight: "900", color: "#ffffff", letterSpacing: "0.02em" }}>
+                GLLITCH.
+              </span>
+            </div>
+            <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", marginTop: "0.8rem", lineHeight: "1.6", maxWidth: "260px" }}>
               Aesthetic digital design systems, performant Web engines, and immersive native mobile software architectures.
             </p>
             <div style={{ marginTop: "2rem", display: "flex", gap: "0.5rem" }}>
@@ -103,7 +131,7 @@ export default function Footer() {
         {/* Closing Tagline */}
         <div style={{ borderTop: "1px dashed var(--border-color)", paddingTop: "3rem", display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: "1.5rem", alignItems: "center" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "var(--text-secondary)", fontSize: "0.8rem", fontFamily: "var(--font-mono)" }}>
-            <span>© {new Date().getFullYear()} F&W GLLITCH. SYSTEM OPERATIONAL.</span>
+            <span>© {new Date().getFullYear()} GLLITCH. SYSTEM OPERATIONAL.</span>
           </div>
 
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "var(--text-secondary)", fontSize: "0.8rem", fontFamily: "var(--font-mono)" }}>

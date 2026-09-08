@@ -92,9 +92,61 @@ export default function Hero() {
           {"// CORE ENGINE_LOADED"}
         </span>
 
-        {/* Huge brand heading */}
+        {/* Brand Logo Display in Circular Frame */}
+        <div
+          style={{
+            position: "relative",
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            marginBottom: "0.5rem",
+          }}
+        >
+          {/* Cyan/Pink Ambient Glow behind logo */}
+          <div
+            style={{
+              position: "absolute",
+              width: "140px",
+              height: "140px",
+              background: "radial-gradient(circle, rgba(0,243,255,0.3) 0%, rgba(255,0,127,0.2) 50%, transparent 70%)",
+              borderRadius: "50%",
+              filter: "blur(20px)",
+              pointerEvents: "none",
+            }}
+          />
+          {/* Circular Frame */}
+          <div
+            style={{
+              width: "100px",
+              height: "100px",
+              borderRadius: "50%",
+              overflow: "hidden",
+              border: "2px solid rgba(255, 255, 255, 0.25)",
+              boxShadow: "0 0 20px rgba(0, 243, 255, 0.4), 0 0 40px rgba(255, 0, 127, 0.2)",
+              position: "relative",
+              zIndex: 2,
+              background: "#000",
+              animation: "hero-logo-float 4s ease-in-out infinite alternate",
+            }}
+            className="hero-brand-logo-container"
+          >
+            <img
+              src="/New logo 2.png"
+              alt="GLLITCH Brand Logo"
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                borderRadius: "50%",
+              }}
+              className="hero-brand-logo"
+            />
+          </div>
+        </div>
+
+        {/* Huge brand heading: GLLITCH */}
         <GlitchText 
-          text="F&W GLLITCH" 
+          text="GLLITCH" 
           className="glitch-title"
           hoverGlitch={true}
         />
@@ -190,6 +242,23 @@ export default function Hero() {
           0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
           40% { transform: translateY(-5px); }
           60% { transform: translateY(-3px); }
+        }
+        @keyframes hero-logo-float {
+          0% { transform: translateY(0px) rotate(0deg); filter: drop-shadow(0 0 16px rgba(0, 243, 255, 0.4)); }
+          50% { transform: translateY(-6px) rotate(1deg); filter: drop-shadow(0 0 22px rgba(255, 0, 127, 0.5)); }
+          100% { transform: translateY(0px) rotate(0deg); filter: drop-shadow(0 0 16px rgba(0, 243, 255, 0.4)); }
+        }
+        @media (max-width: 768px) {
+          .hero-brand-logo-container {
+            width: 80px !important;
+            height: 80px !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .hero-brand-logo-container {
+            width: 65px !important;
+            height: 65px !important;
+          }
         }
       `}</style>
     </section>

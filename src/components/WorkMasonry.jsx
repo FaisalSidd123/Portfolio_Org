@@ -9,6 +9,68 @@ import { FlippingCard } from "./ui/flipping-card";
 const projectsData = [
   {
     id: 1,
+    title: "The Lawyers",
+    subtitle: "Top Law Firm in Pakistan",
+    image: "/the_lawyers.png",
+    description: "Top law firm platform in Pakistan handling company registration, NTN & sales tax registration, income tax filing, SECP compliance, and business licensing.",
+    detailedDescription: [
+      "The Lawyers is a premier legal services digital platform built for one of Pakistan's leading law firms. The platform streamlines legal consultations, corporate compliance, tax filing, and business registration processes for clients across the country.",
+      "Built with React, Tailwind CSS, Framer Motion, and Lenis smooth scrolling, the website delivers a highly professional, interactive, and responsive user experience.",
+      "Clients can easily navigate through legal services including company incorporation, NTN and Sales Tax registration, annual income tax return filing, SECP compliance, and regulatory business licensing with dedicated contact and consultation channels."
+    ],
+    features: [
+      "Comprehensive corporate & tax legal service catalogue",
+      "Company registration & SECP compliance guidance workflow",
+      "NTN & Sales Tax registration & annual income tax filing portal",
+      "Smooth scroll integration with Lenis & high-performance Framer Motion animations",
+      "Interactive consultation request system & direct lawyer contact options",
+      "Fully responsive mobile-first UI with modern aesthetic and smooth micro-interactions"
+    ],
+    tags: ["React", "Tailwind CSS", "Framer Motion", "Lenis", "LegalTech"],
+    liveLink: "https://www.thelawyers.com.pk/",
+    githubUrl: "https://github.com",
+    category: "WEB",
+    color: "#eab308",
+    gradient: "linear-gradient(135deg, #eab308 0%, #ca8a04 100%)",
+    sliceOffsets: [6, -5, 7, -4, 5],
+    client: "The Lawyers Pakistan",
+    year: "2026",
+    scope: "LegalTech Web Platform & Motion UI",
+    metrics: "> status: LIVE_NOW // compliance_inquiries: +250%"
+  },
+  {
+    id: 2,
+    title: "Pizza Arbish",
+    subtitle: "100% Halal Gourmet Pizzeria & WhatsApp Ordering",
+    image: "/pizza arbish.png",
+    description: "Serves 100% Halal certified pizzas, stuffed seekh kabab crust, gourmet pastas in North Karachi. Fired fresh & delivered late until 3:00 AM with direct WhatsApp cart ordering.",
+    detailedDescription: [
+      "Pizza Arbish is an online food ordering platform built for a premier pizzeria in North Karachi, serving 100% Halal certified fresh-fired pizzas, signature stuffed seekh kabab crusts, and gourmet pastas with late-night delivery until 3:00 AM.",
+      "The website is built using React, Tailwind CSS, Framer Motion, and smooth animations. It features interactive food menu categories, real-time item customizable cart management, and seamless instant WhatsApp order integration.",
+      "When customers select their favorite pizzas and deals, the dynamic cart compiles the complete itemized order and directly connects them to the restaurant's WhatsApp message stream for instant fulfillment."
+    ],
+    features: [
+      "Interactive food menu with dynamic category filtering (Pizzas, Crusts, Pastas, Deals)",
+      "Smart reactive shopping cart holding selected items and customized options",
+      "Direct WhatsApp cart integration - sends formatted order straight to restaurant WhatsApp",
+      "Late night order tracking & operational hours showcase (delivered until 3:00 AM)",
+      "Comprehensive About info, location maps, and instant contact channels",
+      "Framer Motion micro-animations with responsive mobile-optimized UI"
+    ],
+    tags: ["React", "Tailwind CSS", "Framer Motion", "WhatsApp API", "E-commerce"],
+    liveLink: "https://pizzaarbish.com/",
+    githubUrl: "https://github.com",
+    category: "APP",
+    color: "#ff4757",
+    gradient: "linear-gradient(135deg, #ff4757 0%, #ff6b81 100%)",
+    sliceOffsets: [-5, 7, -6, 8, -4],
+    client: "Pizza Arbish North Karachi",
+    year: "2026",
+    scope: "Food Ordering Web App & WhatsApp Integration",
+    metrics: "> status: LIVE_NOW // whatsapp_orders: 1k+/mo"
+  },
+  {
+    id: 3,
     title: "QuranVision",
     subtitle: "Islamic Knowledge Platform",
     image: "/QuranVision.PNG",
@@ -41,7 +103,7 @@ const projectsData = [
     metrics: "> active_users: 5k+ // collections_created: 12k+"
   },
   {
-    id: 2,
+    id: 4,
     title: "DreamFragrance",
     subtitle: "E-commerce Perfume Store",
     image: "/DreamFragrance.jpg",
@@ -76,7 +138,7 @@ const projectsData = [
     metrics: "> online_sales: +140% // cart_conversion: 4.8%"
   },
   {
-    id: 3,
+    id: 5,
     title: "SoleHub",
     subtitle: "E-commerce Shoes Store",
     image: "/SoleHub.jpg",
@@ -107,7 +169,7 @@ const projectsData = [
     metrics: "> response_time: 45ms // cart_abandonment: -15%"
   },
   {
-    id: 4,
+    id: 6,
     title: "Anonymous",
     subtitle: "Anonymous Messaging Platform",
     image: "/Anonymous.png",
@@ -139,7 +201,7 @@ const projectsData = [
     metrics: "> anonymous_messages: 50k+ // nim_ai_latency: 90ms"
   },
   {
-    id: 5,
+    id: 7,
     title: "Opti-Manage",
     subtitle: "Brand Management Platform",
     image: "/OptiManage.PNG",
@@ -169,7 +231,7 @@ const projectsData = [
     metrics: "> brand_presence: 100% // load_speed: 0.6s"
   },
   {
-    id: 6,
+    id: 8,
     title: "MYP (Manage Your Priorities)",
     subtitle: "Contact & Client Management System",
     image: "/MYP.png",
@@ -199,7 +261,7 @@ const projectsData = [
     metrics: "> ai_parser_accuracy: 98% // db_latency: 8ms"
   },
   {
-    id: 7,
+    id: 9,
     title: "UrbanEdge",
     subtitle: "Editorial Real Estate Showcase",
     image: "/Urban Edge.png",
@@ -228,7 +290,7 @@ const projectsData = [
     metrics: "> property_views: +310% // scroll_smoothness: 60fps"
   },
   {
-    id: 8,
+    id: 10,
     title: "AutoVault – Car Inventory System",
     subtitle: "Dealership Operations & Public Portal",
     image: "/CMS.png",
@@ -262,7 +324,7 @@ const projectsData = [
   },
 
   {
-    id: 9,
+    id: 11,
     title: "Simon Game",
     subtitle: "Classic Memory Challenge",
     image: "/Simon Game.png",
