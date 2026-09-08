@@ -6,25 +6,27 @@ export default function Footer() {
         { label: "01 // SERVICES", href: "#portals" },
         { label: "02 // PROCESS", href: "#method" },
         { label: "03 // SELECTED_WORKS", href: "#work" },
-        { label: "04 // SPECIFICATIONS", href: "#pricing" }
+        { label: "04 // LEADERSHIP_TEAM", href: "#team" },
+        { label: "05 // INITIATE_CONTACT", href: "#contact" }
       ]
     },
     {
       title: "CONNECTION_LINKS",
       items: [
-        { label: "GITHUB_REPOS", href: "https://github.com" },
-        { label: "DISCORD_SERVER", href: "https://discord.com" },
-        { label: "TWITTER_FEED", href: "https://x.com" },
-        { label: "FIGMA_DESIGNS", href: "https://figma.com" }
+        { label: "GITHUB_REPOS", href: "https://github.com/FaisalSidd123/Portfolio_Org" },
+        { label: "WASIQUE_GITHUB", href: "https://github.com/syedwasique" },
+        { label: "FAISAL_GITHUB", href: "https://github.com/FaisalSidd123" },
+        { label: "WASIQUE_LINKEDIN", href: "https://linkedin.com/in/wasique-rizvi-00ba86182/" },
+        { label: "FAISAL_LINKEDIN", href: "https://www.linkedin.com/in/muhammad-faisal-74baa5297/" }
       ]
     },
     {
       title: "SYSTEM_RESOURCES",
       items: [
-        { label: "TERMINAL_DOCS", href: "#" },
-        { label: "API_CONSOLE", href: "#" },
-        { label: "STATUS_PAGE", href: "#" },
-        { label: "LOGFILES", href: "#" }
+        { label: "STATUS_PAGE", href: "#hero" },
+        { label: "CORE_TECH_STACK", href: "#tech" },
+        { label: "SITEMAP_XML", href: "/sitemap.xml" },
+        { label: "ROBOTS_TXT", href: "/robots.txt" }
       ]
     }
   ];
@@ -107,22 +109,27 @@ export default function Footer() {
                 {col.title}
               </h5>
               <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "0.8rem" }}>
-                {col.items.map((item, itemIdx) => (
-                  <li key={itemIdx}>
-                    <a 
-                      href={item.href} 
-                      style={{ 
-                        fontSize: "0.85rem", 
-                        color: "var(--text-secondary)", 
-                        textDecoration: "none", 
-                        transition: "color 0.2s ease" 
-                      }}
-                      className="footer-link"
-                    >
-                      {item.label}
-                    </a>
-                  </li>
-                ))}
+                {col.items.map((item, itemIdx) => {
+                  const isExternal = item.href.startsWith("http");
+                  return (
+                    <li key={itemIdx}>
+                      <a 
+                        href={item.href} 
+                        target={isExternal ? "_blank" : undefined}
+                        rel={isExternal ? "noopener noreferrer" : undefined}
+                        style={{ 
+                          fontSize: "0.85rem", 
+                          color: "var(--text-secondary)", 
+                          textDecoration: "none", 
+                          transition: "color 0.2s ease" 
+                        }}
+                        className="footer-link"
+                      >
+                        {item.label}
+                      </a>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ))}

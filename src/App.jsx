@@ -11,6 +11,7 @@ import ServicesPortals from "./components/ServicesPortals";
 import MethodSection from "./components/MethodSection";
 import WorkMasonry from "./components/WorkMasonry";
 import TechPhysics from "./components/TechPhysics";
+import Team from "./components/Team";
 import InteractiveCTA from "./components/InteractiveCTA";
 import Contact from "./components/Contact";
 import GlitchTestimonials from "./components/GlitchTestimonials";
@@ -123,6 +124,11 @@ function App() {
       {/* Section 5: Repelling tech physics badges */}
       <div id="tech">
         <TechPhysics />
+      </div>
+
+      {/* Section 5.5: Leadership & Founders */}
+      <div id="team">
+        <Team />
       </div>
 
       {/* Section 6: Diagnostic stats printer

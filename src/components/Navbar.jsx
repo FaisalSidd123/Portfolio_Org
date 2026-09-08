@@ -9,6 +9,7 @@ import {
   Mail,
   Menu,
   X,
+  Users,
 } from "lucide-react";
 import { ExpandableTabs } from "./ui/ExpandableTabs";
 
@@ -18,9 +19,8 @@ const NAV_TABS = [
   { title: "Services", icon: Layers, href: "#portals" },
   { title: "Method", icon: Cpu, href: "#method" },
   { title: "Work", icon: Briefcase, href: "#work" },
+  { title: "Team", icon: Users, href: "#team" },
   { type: "separator" },
-  { title: "Reviews", icon: MessageSquare, href: "#testimonials" },
-  // { title: "Pricing",    icon: DollarSign,    href: "#pricing" },
   { title: "Contact", icon: Mail, href: "#contact" },
 ];
 
